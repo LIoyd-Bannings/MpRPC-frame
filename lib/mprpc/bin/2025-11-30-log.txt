@@ -1,0 +1,8 @@
+5:2:0=>[error]first log message!
+5:2:0=>[error]/home/lele/mprpc/example/callee/friendservice.cpp:main:47
+5:2:0=>[info]service_name:FriendServiceRpc
+5:2:1=>[info]method_name:GetFriendList
+6:11:54=>[error]first log message!
+6:11:54=>[info]/home/lele/mprpc/example/callee/friendservice.cpp:main:47
+6:11:54=>[info]service_name:FriendServiceRpc
+6:11:54=>[info]method_name:GetFriendList

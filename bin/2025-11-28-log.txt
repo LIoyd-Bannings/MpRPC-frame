@@ -1,0 +1,2 @@
+5:21:18=>first log message!5:21:18=>/home/lele/mprpc/example/callee/friendservice.cpp:main:475:23:16=>first log message!
+5:23:16=>/home/lele/mprpc/example/callee/friendservice.cpp:main:47
