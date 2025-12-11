@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 
     // 发起rpc方法的调用  同步的rpc调用过程  MprpcChannel::callmethod
     MprpcController controller;
-    stub.GetFriendList(&controller, &request, &response, nullptr); // RpcChannel->RpcChannel::callMethod 集中来做所有rpc方法调用的参数序列化和网络发送
+    stub.GetFriendList(&controller, &request, &response, nullptr); //RpcChannel->RpcChannel::callMethod集中来做所有rpc方法调用的参数序列化和网络发送
 
     if (controller.Failed())
     {

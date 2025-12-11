@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/mprpcapplication.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcapplication.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/mprpcapplication.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/mprpcconfig.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcconfig.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/mprpcconfig.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/rpcheader.pb.cc.o -c /home/lele/program/MpRPC-frame/src/rpcheader.pb.cc",
+  "file": "/home/lele/program/MpRPC-frame/src/rpcheader.pb.cc"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/rpcprovider.cpp.o -c /home/lele/program/MpRPC-frame/src/rpcprovider.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/rpcprovider.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/mprpcchannel.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcchannel.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/mprpcchannel.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/mprpccontroller.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpccontroller.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/mprpccontroller.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/logger.cpp.o -c /home/lele/program/MpRPC-frame/src/logger.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/logger.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/mprpc.dir/zookeeperutil.cpp.o -c /home/lele/program/MpRPC-frame/src/zookeeperutil.cpp",
+  "file": "/home/lele/program/MpRPC-frame/src/zookeeperutil.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/example/callee",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/provider.dir/friendservice.cpp.o -c /home/lele/program/MpRPC-frame/example/callee/friendservice.cpp",
+  "file": "/home/lele/program/MpRPC-frame/example/callee/friendservice.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/example/callee",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/provider.dir/__/friend.pb.cc.o -c /home/lele/program/MpRPC-frame/example/friend.pb.cc",
+  "file": "/home/lele/program/MpRPC-frame/example/friend.pb.cc"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/consumer.dir/callfriendservice.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/callfriendservice.cpp",
+  "file": "/home/lele/program/MpRPC-frame/example/caller/callfriendservice.cpp"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example  -g   -o CMakeFiles/consumer.dir/__/friend.pb.cc.o -c /home/lele/program/MpRPC-frame/example/friend.pb.cc",
+  "file": "/home/lele/program/MpRPC-frame/example/friend.pb.cc"
+}
+]

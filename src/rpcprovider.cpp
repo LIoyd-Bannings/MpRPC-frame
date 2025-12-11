@@ -76,7 +76,7 @@ void RpcProvider::Run()
    
 
 
-
+    m_threadpool.reset(new ThreadPool(4));
 
     std::cout << "RpcProvider start service at ip:" << ip << " port:" << port << std::endl;
     server.start();
@@ -171,11 +171,14 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net
                                                                     const muduo::net::TcpConnectionPtr &,
                                                                     google::protobuf::Message *>(this,
                                                                                                  &RpcProvider::SendRpcResponse,
+                    
                                                                                                  conn, response);
 
     // 在框架上根据远端rpc请求  调用当前rpc节点上发布的方法
     // new UserService().Login(controller request, response ,done)
-    service->CallMethod(method, nullptr, request, response, done);
+    m_threadpool->addTask([service, method, request, response, done]{service->CallMethod(method, nullptr, request, response, done);});
+  
+    
 }
 
 // Closure的回调操作 用于序列化rpc的响应和网络发送

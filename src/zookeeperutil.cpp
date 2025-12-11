@@ -6,11 +6,13 @@
 //全局的watcher观察器  zkserver给zkclient的通知
 void global_watcher(zhandle_t *zh,int type,int state,const char* path,void *watcherCtx)
 {
-    if(type==ZOO_SESSION_EVENT)//回调的消息类型是和会话相关的消息类型
+    std::cout << "Watcher Check: type=" << type << " state=" << state << std::endl;
+
+    if(type == ZOO_SESSION_EVENT)  // 3
     {
-        if(state==ZOO_CONNECTED_STATE)//zkclient和zkserver连接成功
+        if(state == ZOO_CONNECTED_STATE) // 3
         {
-            sem_t *sem=(sem_t*)zoo_get_context(zh);
+            sem_t *sem = (sem_t*)zoo_get_context(zh);
             sem_post(sem);
         }
     }

@@ -8,6 +8,7 @@
 #include<string>
 #include<google/protobuf/descriptor.h>
 #include<unordered_map>
+#include "threadpool.h"
 // 框架提供的专门负责发布rpc服务的网络对象类
 class RpcProvider
 {
@@ -41,5 +42,6 @@ private:
 
     //Closure的回调操作 用于序列化rpc的响应和网络发送
     void SendRpcResponse(const muduo::net::TcpConnectionPtr &,google::protobuf::Message*);
+    std::unique_ptr<ThreadPool> m_threadpool;
 
 };
