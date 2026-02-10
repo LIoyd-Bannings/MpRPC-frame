@@ -1,41 +1,40 @@
-🚀 项目简介
+**🚀 项目简介**
 本项目是一个基于 C++ 开发的轻量级分布式网络通信框架（RPC）。通过将复杂的网络传输、数据序列化及服务治理封装在框架层，使开发者能够像调用本地函数一样调用远程服务器上的方法。
 
-项目核心基于 Muduo 网络库 实现高并发通信，利用 Protobuf 进行数据的高效序列化，并集成 Zookeeper 实现服务的自动注册与发现 。
+项目核心基于**Muduo 网络库** 实现高并发通信，利用 **Protobuf** 进行数据的高效序列化，并集成**Zookeeper**实现服务的自动注册与发现 。
 +3
 
 🛠️ 核心架构与技术细节
 1. 并发模型与网络 I/O
 
-高性能网络底座：底层集成 Muduo 库，采用 Multi-Reactor 并发模型。主 Reactor 负责处理连接，子 Reactor 负责处理已建立连接的 I/O 事件 。
+高性能网络底座：底层集成**Muduo**库，采用**Multi-Reactor**并发模型。**主Reactor**负责处理连接，**子Reactor**负责处理已建立连接的I/O事件 。
 +1
 
 
-业务 I/O 分离：框架内部集成自定义 ThreadPool。在 OnMessage 接收到请求后，将其封装为任务投递至线程池，避免耗时的业务逻辑阻塞 EventLoop 线程，大幅提升吞吐量 。
+业务 I/O 分离：框架内部集成**自定义ThreadPool**。在OnMessage接收到请求后，将其封装为任务投递至线程池，避免耗时的业务逻辑阻塞EventLoop线程，大幅提升吞吐量 。
 +1
 
 2. 服务治理（Zookeeper）
 
-自动注册与发现：服务提供方（Provider）在启动时通过 ZkClient 将服务名及主机地址发布到 Zookeeper 节点 。
+自动注册与发现：服务提供方（Provider）在启动时通过**ZkClient**将服务名及主机地址发布到 Zookeeper 节点 。
 +1
 
+临时节点机制：利用**Zookeeper**的临时节点(ZOO_EPHEMERAL），实现服务宕机自动下线，保证服务列表的实时有效性 。
 
-临时节点机制：利用 Zookeeper 的临时节点（ZOO_EPHEMERAL），实现服务宕机自动下线，保证服务列表的实时有效性 。
 
-
-同步连接优化：使用 信号量 (sem_t) 将 Zookeeper 的异步连接过程同步化，确保在连接真正建立后再进行后续的节点创建操作 。
+同步连接优化：使用 **信号量 (sem_t)** 将**Zookeeper**的异步连接过程同步化，确保在连接真正建立后再进行后续的节点创建操作 。
 
 3. 通信协议设计
-为了解决 TCP 的粘包和半包问题，自定义了“三段式”协议报文：
+为了解决**TCP的粘包和半包问题**，自定义了“三段式”协议报文：
 
-[Header Size (4B)] + [RpcHeader (Protobuf)] + [Args (Protobuf)]
+**[Header Size (4B)] + [RpcHeader (Protobuf)] + [Args (Protobuf)]**
 
 
-自描述头：RpcHeader 包含 service_name、method_name 及 args_size，实现了协议的自描述 。
+自描述头：**RpcHeader** 包含 **service_name**、**method_name** 及 **args_size**，实现了协议的自描述 。
 +1
 
 
-序列化：使用 Protobuf 序列化技术，相比 JSON/XML 具有更小的体积和更快的编解码速度 。
+序列化：使用**Protobuf**序列化技术，相比**JSON/XML**具有更小的体积和更快的编解码速度 。
 +1
 
 4. 异步日志系统
@@ -44,7 +43,7 @@
 +2
 
 
-守护线程写入：专门开启一个后台写日志线程，从队列中读取数据并持久化到磁盘，最大限度降低日志记录对业务响应延迟的影响 。
+守护线程写入：专门开启一个**后台写日志线程**，从队列中读取数据并持久化到磁盘，最大限度降低日志记录对业务响应延迟的影响 。
 +1
 
 📁 项目结构
@@ -76,7 +75,7 @@ Protobuf 序列化库
 
 Zookeeper C API 库 
 
-编译构建
+编译构建·
 Bash
 git clone https://github.com/your-username/mprpc.git
 cd mprpc
@@ -89,11 +88,5 @@ sh build.sh # 或者手动使用 cmake .. && make
 
 
 启动 Consumer：./bin/consumer -i config.conf 
-+1
 
-📈 未来规划 (Roadmap)
-[ ] 连接池优化：实现客户端连接池，将短连接升级为长连接复用，降低建连开销。
 
-[ ] 容错机制：引入本地缓存，当 Zookeeper 短暂不可用时，仍能通过缓存地址提供服务。
-
-[ ] 负载均衡：在 Consumer 端实现随机、轮询或加权一致性哈希等负载均衡算法。
