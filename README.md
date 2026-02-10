@@ -49,15 +49,15 @@
 📁 项目结构
 Plaintext
 .
-├── bin/                 # 生成的可执行文件
-├── lib/                 # 生成的静态库文件 (libmprpc.a)
-├── example/             # 框架使用示例 (Provider/Consumer)
-├── src/
-│   ├── include/         # 头文件 (.h)
-│   │   ├── rpcprovider.h    # 服务分发器
-│   │   ├── mprpcchannel.h   # 客户端通道
-│   │   ├── lockqueue.h      # 同步队列
-│   │   └── ...
+├── bin/                 # 生成的可执行文件  
+├── lib/                 # 生成的静态库文件 (libmprpc.a)  
+├── example/             # 框架使用示例 (Provider/Consumer)  
+├── src/  
+│   ├── include/         # 头文件 (.h)  
+│   │   ├── rpcprovider.h    # 服务分发器  
+│   │   ├── mprpcchannel.h   # 客户端通道  
+│   │   ├── lockqueue.h      # 同步队列  
+│   │   └── ...  
 │   ├── rpcprovider.cpp  # 网络分发逻辑实现
 │   ├── mprpcchannel.cpp # 序列化与路由逻辑实现
 │   ├── zookeeperutil.cpp# Zookeeper 接口封装
@@ -88,5 +88,6 @@ sh build.sh # 或者手动使用 cmake .. && make
 
 
 启动 Consumer：./bin/consumer -i config.conf 
+
 
 
