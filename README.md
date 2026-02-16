@@ -9,14 +9,14 @@
 这是一个基于 Muduo 网络库和 Protobuf 序列化协议开发的高性能 RPC 框架，支持服务注册与发现。
 
 ### 1. 技术架构
-- [cite_start]**网络底座**：基于 **Muduo** 库实现的非阻塞 I/O 和 Reactor 模型，能够高效处理大规模并发连接 [cite: 1097-1100, 1630]。
-- [cite_start]**服务治理**：集成 **Zookeeper** 作为注册中心，利用 **临时节点 (EPHEMERAL)** 实现服务自动上线与失效剔除 [cite: 1636, 1653]。
-- [cite_start]**序列化方案**：使用 **Google Protobuf** 负责数据的序列化与反序列化，通过自定义协议头解决 TCP 粘包问题 [cite: 1348, 1583-1588]。
+- **网络底座**：基于 **Muduo** 库实现的非阻塞 I/O 和 Reactor 模型，能够高效处理大规模并发连接 。
+- [cite_start]**服务治理**：集成 **Zookeeper** 作为注册中心，利用 **临时节点 (EPHEMERAL)** 实现服务自动上线与失效剔除 。
+- [cite_start]**序列化方案**：使用 **Google Protobuf** 负责数据的序列化与反序列化，通过自定义协议头解决 TCP 粘包问题 。
 
 ### 2. 关键组件
-- [cite_start]**异步日志系统**：采用生产者-消费者模型，结合 `LockQueue` 与后台守护线程，实现非阻塞式日志记录 [cite: 948-960, 1245]。
-- [cite_start]**高并发线程池**：通过自研 `ThreadPool` 将 RPC 业务逻辑调用异步化，保护 I/O 线程不被阻塞 [cite: 1143, 1741]。
-- [cite_start]**服务注册接口**：提供简洁的 `NotifyService` 接口，支持快速发布 RPC 方法 [cite: 1111, 1601]。
+- [cite_start]**异步日志系统**：采用生产者-消费者模型，结合 `LockQueue` 与后台守护线程，实现非阻塞式日志记录 。
+- [cite_start]**高并发线程池**：通过自研 `ThreadPool` 将 RPC 业务逻辑调用异步化，保护 I/O 线程不被阻塞。
+- [cite_start]**服务注册接口**：提供简洁的 `NotifyService` 接口，支持快速发布 RPC 方法 。
 
 ---
 
@@ -62,3 +62,4 @@ make
 # 启动服务
 ./bin/provider -i config.conf
 ./bin/consumer -i config.conf
+
