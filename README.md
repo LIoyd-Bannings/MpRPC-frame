@@ -9,13 +9,13 @@
 
 ## ✨ 核心特性
 
-* [cite_start]**🧠 纯 C++ 驱动的 ReAct 状态机**: 摒弃臃肿的第三方 Agent 框架，纯手写实现动态记忆链条 (`messages_array`) 与多轮对话上下文管理，支持大模型在后台进行多次“思考 -> 调用工具 -> 获取观察结果 -> 总结”的自主推理闭环 [cite: 1]。
-* [cite_start]**🌉 异构双协议栈通信**: 北向采用 HTTPS (`cpp-httplib` + OpenSSL) 直连公网大模型 API；南向采用基于 Muduo/Epoll 的高性能自定义 RPC 协议穿透内网，实现云端大脑与本地四肢的解耦 [cite: 1]。
-* [cite_start]**🔍 动态服务注册与发现**: 深度集成 Zookeeper，底层执行节点 (Provider) 启动时注册临时节点，网关拦截 LLM 的 Tool Call 指令后，动态寻址路由到存活的物理节点 [cite: 1]。
+* **🧠 纯 C++ 驱动的 ReAct 状态机**: 摒弃臃肿的第三方 Agent 框架，纯手写实现动态记忆链条 (`messages_array`) 与多轮对话上下文管理，支持大模型在后台进行多次“思考 -> 调用工具 -> 获取观察结果 -> 总结”的自主推理闭环。
+* **🌉 异构双协议栈通信**: 北向采用 HTTPS (`cpp-httplib` + OpenSSL) 直连公网大模型 API；南向采用基于 Muduo/Epoll 的高性能自定义 RPC 协议穿透内网，实现云端大脑与本地四肢的解耦。
+* **🔍 动态服务注册与发现**: 深度集成 Zookeeper，底层执行节点 (Provider) 启动时注册临时节点，网关拦截 LLM 的 Tool Call 指令后，动态寻址路由到存活的物理节点。
 * **🛠️ 跨语言沙盒与数据探针**: 
-    * [cite_start]**ExecutePython**: 底层节点基于 `popen` 管道通信机制，拉起本地解释器动态执行大模型生成的 Python 3 复杂计算代码并捕获标准输出 [cite: 1]。
-    * [cite_start]**SearchDataBase**: 赋予大模型高级 DBA 权限，支持动态生成 `SHOW TABLES`, `DESC` 等 SQL 语句进行 Schema 探索，并安全执行业务查询 [cite: 1]。
-* [cite_start]**🛡️ 健壮的并发与异常容灾**: 运用 `std::condition_variable` 与 `std::unique_lock` 实现极其严谨的 `SyncClosure` 同步等待器，防止网络 I/O 阻塞导致的主线程坠毁；并具备完备的 JSON 反序列化异常捕获机制 [cite: 1]。
+    * **ExecutePython**: 底层节点基于 `popen` 管道通信机制，拉起本地解释器动态执行大模型生成的 Python 3 复杂计算代码并捕获标准输出。
+    * **SearchDataBase**: 赋予大模型高级 DBA 权限，支持动态生成 `SHOW TABLES`, `DESC` 等 SQL 语句进行 Schema 探索，并安全执行业务查询 。
+* **🛡️ 健壮的并发与异常容灾**: 运用 `std::condition_variable` 与 `std::unique_lock` 实现极其严谨的 `SyncClosure` 同步等待器，防止网络 I/O 阻塞导致的主线程坠毁；并具备完备的 JSON 反序列化异常捕获机制 。
 
 ## 🛠️ 技术栈 (Tech Stack)
 
