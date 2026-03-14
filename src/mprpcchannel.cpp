@@ -20,6 +20,9 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
                                google::protobuf::RpcController *controller, const google::protobuf::Message *request,
                                google::protobuf::Message *response, google::protobuf::Closure *done)
 {
+
+
+    threadpool->addTask([=](){
     const google::protobuf::ServiceDescriptor* sd=  method->service();
     std::string service_name=sd->name();//service_name
     std::string method_name=method->name();//method_name
@@ -34,6 +37,7 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
    else
    {
         controller->SetFailed("serialize request error!");
+        if(done)done->Run();
         return;
    }
 
@@ -53,12 +57,14 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
    else
    {
         controller->SetFailed("serialize rpc header error!");
+        if(done) done->Run();
         return;
    }
 
     //组织待发送的rpc请求的字符串
     std::string send_rpc_str;
-    send_rpc_str.insert(0,std::string((char*)&header_size,4));//header_size
+    uint32_t header_size_net=htonl(header_size);//转换为网络字节序
+    send_rpc_str.insert(0,std::string((char*)&header_size_net,4));//header_size
     send_rpc_str+=rpc_header_str;//rpcheader
     send_rpc_str+=args_str;//args
 
@@ -71,16 +77,7 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
         std::cout<<"args_str:"<<args_str<<std::endl;
         std::cout<<"======================================"<<std::endl;
 
-        //使用tcp编程  完成rpc方法的远程调用
-        int clientfd=socket(AF_INET,SOCK_STREAM,0);
-        if(-1==clientfd)
-        {
-            char errtxt[512]={0};
-            sprintf(errtxt,"create socket error! errno:%d",errno);
-            controller->SetFailed(errtxt);
-            close(clientfd);
-            exit(EXIT_FAILURE);
-        }
+      
 
            // std::string ip=MprpcApplication::GetInstance().GetConfig().Load("rpcserverip");
             //uint16_t port=atoi(MprpcApplication::GetInstance().GetConfig().Load("rpcserverport").c_str());
@@ -92,16 +89,32 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
             if(host_data=="")
             {
                 controller->SetFailed(method_path+"is not exist!");
+                if(done)done->Run();
                 return;
             }
             int idx=host_data.find(":");
             if(idx==-1)
             {
                 controller->SetFailed(method_path+"address is invalid!");
+                if(done)done->Run();
                 return;
             }
         std::string ip=host_data.substr(0,idx);
         uint16_t port=atoi(host_data.substr(idx+1,host_data.size()-idx).c_str());
+
+         //使用tcp编程  完成rpc方法的远程调用
+        int clientfd=socket(AF_INET,SOCK_STREAM,0);
+        if(-1==clientfd)
+        {
+            char errtxt[512]={0};
+            sprintf(errtxt,"create socket error! errno:%d",errno);
+            controller->SetFailed(errtxt);
+            //close(clientfd);
+            //exit(EXIT_FAILURE);
+            if(done)done->Run();//通知调用方失败
+            return;
+        }
+
 
         struct sockaddr_in server_addr;
         server_addr.sin_family=AF_INET;
@@ -113,7 +126,10 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
          char errtxt[512]={0};
             sprintf(errtxt,"create  error! errno:%d",errno);
             controller->SetFailed(errtxt);
-            exit(EXIT_FAILURE);
+            close(clientfd);
+            //exit(EXIT_FAILURE);
+            if(done)done->Run();//通知调用方失败
+            return;
         }
 
         //发送rpc请求
@@ -122,30 +138,78 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
             char errtxt[512]={0};
             sprintf(errtxt,"send socket error! errno:%d",errno);
             controller->SetFailed(errtxt);
+             close(clientfd);
+            if(done)done->Run();//通知调用方失败
             return;
         }
 
-        //接收rpc请求的响应值
-        char recv_buf[1024]={0};
+        // //接收rpc请求的响应值
+        // char recv_buf[1024]={0};
+        // int recv_size=0;
+        // if(-1==(recv_size=recv(clientfd,recv_buf,1024,0)))
+        // {
+        //     char errtxt[512]={0};
+        //     sprintf(errtxt,"recv  error! errno:%d",errno);
+        //     controller->SetFailed(errtxt);
+        //     close(clientfd);
+        //     if(done)done->Run();//通知调用方失败
+        //     return;
+        // }
+
+        // //反序列化rpc调用的响应数据
+        // std::string response_str(recv_buf,0,recv_size);//bug出现问题 recv_buf中遇到\0后面的数据就存不下来了  导致反序列化失败
+        // //if(!response->ParseFromString(response_str))
+        // if(!response->ParseFromArray(recv_buf,recv_size))
+        // {
+        //     char errtxt[512]={0};
+        //     sprintf(errtxt,"parse error! response_str:%s",recv_buf);
+        //     controller->SetFailed(errtxt);
+        //     close(clientfd);
+        //     if(done)done->Run();//通知调用方失败
+        //     return;
+        // }
+
+        std::string response_str;//用srd::string作为动态增长的无上限蓄水池
+        char recv_buf[4096]={0};//每次缓冲区扩容到4kb
         int recv_size=0;
-        if(-1==(recv_size=recv(clientfd,recv_buf,1024,0)))
-        {
-            char errtxt[512]={0};
-            sprintf(errtxt,"recv  error! errno:%d",errno);
-            controller->SetFailed(errtxt);
-            return;
-        }
 
-        //反序列化rpc调用的响应数据
-        std::string response_str(recv_buf,0,recv_size);//bug出现问题 recv_buf中遇到\0后面的数据就存不下来了  导致反序列化失败
-        //if(!response->ParseFromString(response_str))
-        if(!response->ParseFromArray(recv_buf,recv_size))
+        //只要服务器端没发完并且还没断开(recv>0)，就一直读取
+        while((recv_size=recv(clientfd,recv_buf,sizeof(recv_buf),0))>0)
+        {
+            response_str.append(recv_buf,recv_size);//拼接真实的字节流
+        }
+        if(recv_size==-1&&response_str.empty())
         {
             char errtxt[512]={0};
-            sprintf(errtxt,"parse error! response_str:%s",recv_buf);
+            sprintf(errtxt,"recv error! errno:%d", errno);
             controller->SetFailed(errtxt);
             close(clientfd);
+            if(done) done->Run();
             return;
         }
+
+        //反序列化  这次装的是100%完整的数据
+        //拿着装满数据的 response_str 直接反序列化，绝对不会再有 parse error！
+        if(!response->ParseFromString(response_str))
+        {
+            char errtxt[512]={0};
+            sprintf(errtxt, "parse error! 接收到的数据总长度:%zu", response_str.size());
+            controller->SetFailed(errtxt);
+            close(clientfd);
+            if(done)done->Run();
+            return;
+        }
+
+
         close(clientfd);
+        if(done!=nullptr)
+        {
+            done->Run();
+        }
+
+    });
+
+
+
+    
 }

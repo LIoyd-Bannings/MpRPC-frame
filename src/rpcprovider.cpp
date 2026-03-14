@@ -109,7 +109,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net
     // 从字符流中读取前四个字节的内容
     uint32_t header_size = 0;
     recv_buf.copy((char *)&header_size, 4, 0);
-
+    header_size = ntohl(header_size);
     // 根据header_size读取数据头的原始字符流 反序列化数据 得到RPC请求的详细信息
     std::string rpc_header_str = recv_buf.substr(4, header_size);
     mprpc::RpcHeader rpcHeader;

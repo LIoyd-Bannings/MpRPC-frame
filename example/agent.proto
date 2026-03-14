@@ -1,0 +1,26 @@
+syntax = "proto3";
+package ai_agent;
+option cc_generic_services=true;
+
+message ResultCode{
+    int32 errcode=1;
+    bytes errmsg=2;
+}
+
+//核心  大模型发来的工具调用请求
+message ToolCallRequest {
+string trace_id=1;//链路追踪
+string tool_name=2;//工具名  如“SearchDataBase"   ”ExecutePython“
+bytes args_json=3;//工具参数  用bytes承载JSON 体现灵活性
+}
+
+//核心  工具执行的返回结果
+message ToolCallResponse{
+    ResultCode result = 1;
+    bytes output=2;//工具执行的原始输出
+}
+
+service AgentServiceRpc{
+//统一的工具执行入口
+rpc Execute(ToolCallRequest)  returns(ToolCallResponse);
+}

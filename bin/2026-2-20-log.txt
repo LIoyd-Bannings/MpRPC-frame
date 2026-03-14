@@ -1,0 +1,8 @@
+22:46:17=>[error]first log message!
+22:46:17=>[error]/home/lele/program/MpRPC-frame/example/callee/friendservice.cpp:main:47
+22:46:17=>[info]service_name:FriendServiceRpc
+22:46:17=>[info]method_name:GetFriendList
+22:46:54=>[error]first log message!
+22:46:54=>[error]/home/lele/program/MpRPC-frame/example/callee/friendservice.cpp:main:47
+22:46:54=>[info]service_name:FriendServiceRpc
+22:46:54=>[info]method_name:GetFriendList

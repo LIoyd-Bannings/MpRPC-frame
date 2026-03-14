@@ -1,0 +1,13 @@
+9:24:20=>[info]service_name:AgentServiceRpc
+9:24:20=>[info]method_name:Execute
+9:24:20=>[info][TraceID: trace-llm-999] 收到大模型工具调用指令, 目标工具: ExecutePython
+9:27:2=>[info][TraceID: trace-llm-999] Python真实执行完毕, 结果长度: 2998
+9:27:2=>[info][TraceID: trace-llm-999] 收到大模型工具调用指令, 目标工具: ExecutePython
+9:28:56=>[info][TraceID: trace-llm-999] Python真实执行完毕, 结果长度: 5
+21:19:6=>[info]service_name:AgentServiceRpc
+21:20:8=>[info]service_name:AgentServiceRpc
+21:20:8=>[info]method_name:Execute
+21:20:8=>[info][TraceID: trace-llm-999] 收到大模型工具调用指令, 目标工具: ExecutePython
+21:20:21=>[info][TraceID: trace-llm-999] Python真实执行完毕, 结果长度: 2998
+21:48:26=>[info]service_name:AgentServiceRpc
+21:48:26=>[info]method_name:Execute

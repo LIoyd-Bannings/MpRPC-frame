@@ -1,0 +1,43 @@
+337	in ../csu/libc-start.c
+Breakpoint 2 at 0x7ffff7dedf90: file ../csu/libc-start.c, line 137.
+Starting program: /home/lele/program/MpRPC-frame/test/a.out 
+
+Breakpoint 2, __libc_start_main (main=0x5555555551a0 <main>, argc=1, argv=0x7fffffffe148, init=0x555555555230 <__libc_csu_init>, 
+    fini=0x5555555552a0 <__libc_csu_fini>, rtld_fini=0x7ffff7fe0d60 <_dl_fini>, stack_end=0x7fffffffe138) at ../csu/libc-start.c:137
+137	../csu/libc-start.c: No such file or directory.
+132	in ../csu/libc-start.c
+1	#include<stdio.h>
+2	
+3	void hello()
+4	{
+5		printf("hello echo~\n");
+6	}
+7	
+8	
+9	int main()
+10	{
+11	
+12		int arr[4]={1,2,3,4};
+13		int i=0;
+14		for(;i<4;i++)
+15		{
+16			printf("%d\n",arr[i]);
+17		}
+18		hello();
+19		return 0;
+20	
+Breakpoint 1 at 0x1206: file test1.c, line 18.
+Starting program: /home/lele/program/MpRPC-frame/test/a.out 
+
+Breakpoint 1, main () at test1.c:18
+18		hello();
+hello () at test1.c:4
+4	{
+5		printf("hello echo~\n");
+6	}
+main () at test1.c:19
+19		return 0;
+21	}
+__libc_start_main (main=0x5555555551a0 <main>, argc=1, argv=0x7fffffffe148, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, 
+    stack_end=0x7fffffffe138) at ../csu/libc-start.c:342
+342	../csu/libc-start.c: No such file or directory.
