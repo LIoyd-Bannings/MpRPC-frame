@@ -21,9 +21,9 @@
 
 * **开发语言**: C++11 / C++14
 * **网络框架**: Muduo (基于 Epoll 的 Reactor 模型)
-* [cite_start]**RPC 通信**: 自定义基于 Protobuf 的二进制序列化协议 [cite: 1]
+* [cite_start]**RPC 通信**: 自定义基于 Protobuf 的二进制序列化协议
 * **服务治理**: Zookeeper (C Client)
-* [cite_start]**大模型对接**: HTTP/HTTPS (cpp-httplib), nlohmann/json [cite: 1]
+* [cite_start]**大模型对接**: HTTP/HTTPS (cpp-httplib), nlohmann/json
 * **底层组件**: MySQL C API, Linux IPC (管道通信)
 
 ## ⚙️ 编译与快速启动
