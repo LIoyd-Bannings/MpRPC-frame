@@ -46,3 +46,21 @@ cd MpRPC-frame
 mkdir build && cd build
 cmake ..
 make -j4
+```
+###3.运行为服务器集群
+```bash
+# 终端 A: 确保 Zookeeper 服务已在后台运行 (默认 2181 端口)
+# sudo ./zkServer.sh start
+
+# 终端 B: 启动底层物理执行节点 (Provider)
+cd bin
+./agent_provider -i test.conf
+
+# 终端 C: 启动 AI 智能体调度网关 (Gateway)
+cd bin
+./agent_gateway -i test.conf
+
+
+
+
+
