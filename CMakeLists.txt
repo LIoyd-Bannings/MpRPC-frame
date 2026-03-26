@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(mprpc)
 set(CMAKE_BUILD_TYPE "Debug")#RelWithDebInfo
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer")
 #设置项目可执行文件的输出路径

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/lele/program/MpRPC-frame/bin/agent_provider"
+			"path" : "/home/lele/program/MpRPC-frame/bin/consumer"
 		}
 	],
 	"backtrace" : 1,
@@ -17,7 +17,7 @@
 		],
 		"files" : 
 		[
-			"example/callee/CMakeLists.txt",
+			"example/caller/CMakeLists.txt",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -37,20 +37,14 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 16,
+				"line" : 17,
 				"parent" : 2
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 10,
+				"line" : 9,
 				"parent" : 0
-			},
-			{
-				"command" : 3,
-				"file" : 1,
-				"line" : 13,
-				"parent" : 2
 			},
 			{
 				"command" : 3,
@@ -60,9 +54,9 @@
 			},
 			{
 				"command" : 3,
-				"file" : 0,
-				"line" : 4,
-				"parent" : 0
+				"file" : 1,
+				"line" : 15,
+				"parent" : 2
 			}
 		]
 	},
@@ -72,7 +66,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -fno-omit-frame-pointer -g  "
+					"fragment" : " -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g  "
 				}
 			],
 			"includes" : 
@@ -84,18 +78,13 @@
 				{
 					"backtrace" : 6,
 					"path" : "/home/lele/program/MpRPC-frame/example"
-				},
-				{
-					"backtrace" : 7,
-					"path" : "/home/lele/program/MpRPC-frame/example/callee/../db"
 				}
 			],
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2
+				1
 			]
 		}
 	],
@@ -106,13 +95,13 @@
 			"id" : "mprpc::@145eef247bfb46b6828c"
 		}
 	],
-	"id" : "agent_provider::@493cd8b262c97a98b12b",
+	"id" : "consumer::@c2a3416f73e845390d82",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-fno-omit-frame-pointer -g",
+				"fragment" : "-fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g",
 				"role" : "flags"
 			},
 			{
@@ -138,10 +127,6 @@
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lmysqlclient",
-				"role" : "libraries"
-			},
-			{
 				"fragment" : "-lmuduo_net",
 				"role" : "libraries"
 			},
@@ -160,12 +145,12 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "agent_provider",
-	"nameOnDisk" : "agent_provider",
+	"name" : "consumer",
+	"nameOnDisk" : "consumer",
 	"paths" : 
 	{
-		"build" : "example/callee",
-		"source" : "example/callee"
+		"build" : "example/caller",
+		"source" : "example/caller"
 	},
 	"sourceGroups" : 
 	[
@@ -174,8 +159,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2
+				1
 			]
 		}
 	],
@@ -184,19 +168,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "example/callee/agentserver.cpp",
+			"path" : "example/caller/callagentservice.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "example/agent.pb.cc",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "example/db/db.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

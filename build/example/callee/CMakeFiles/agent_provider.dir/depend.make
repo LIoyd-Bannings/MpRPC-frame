@@ -7,8 +7,8 @@ example/callee/CMakeFiles/agent_provider.dir/__/agent.pb.cc.o: ../example/agent.
 example/callee/CMakeFiles/agent_provider.dir/__/db/db.cpp.o: ../example/db/db.cpp
 example/callee/CMakeFiles/agent_provider.dir/__/db/db.cpp.o: ../example/db/db.h
 
-example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../example/agent.pb.h
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../example/db/db.h
+example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/consistent_hash.h
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/json.hpp
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/lockqueue.h
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/logger.h
@@ -19,4 +19,6 @@ example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/m
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/rpcprovider.h
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/include/threadpool.h
 example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../example/callee/agentserver.cpp
+example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../example/callee/mcp_service_impl.h
+example/callee/CMakeFiles/agent_provider.dir/agentserver.cpp.o: ../src/mcp.pb.h
 

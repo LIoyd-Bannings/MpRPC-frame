@@ -152,6 +152,33 @@ logger.cpp.s:
 	cd /home/lele/program/MpRPC-frame/build && $(MAKE) -f src/CMakeFiles/mprpc.dir/build.make src/CMakeFiles/mprpc.dir/logger.cpp.s
 .PHONY : logger.cpp.s
 
+mcp.pb.o: mcp.pb.cc.o
+
+.PHONY : mcp.pb.o
+
+# target to build an object file
+mcp.pb.cc.o:
+	cd /home/lele/program/MpRPC-frame/build && $(MAKE) -f src/CMakeFiles/mprpc.dir/build.make src/CMakeFiles/mprpc.dir/mcp.pb.cc.o
+.PHONY : mcp.pb.cc.o
+
+mcp.pb.i: mcp.pb.cc.i
+
+.PHONY : mcp.pb.i
+
+# target to preprocess a source file
+mcp.pb.cc.i:
+	cd /home/lele/program/MpRPC-frame/build && $(MAKE) -f src/CMakeFiles/mprpc.dir/build.make src/CMakeFiles/mprpc.dir/mcp.pb.cc.i
+.PHONY : mcp.pb.cc.i
+
+mcp.pb.s: mcp.pb.cc.s
+
+.PHONY : mcp.pb.s
+
+# target to generate assembly for a file
+mcp.pb.cc.s:
+	cd /home/lele/program/MpRPC-frame/build && $(MAKE) -f src/CMakeFiles/mprpc.dir/build.make src/CMakeFiles/mprpc.dir/mcp.pb.cc.s
+.PHONY : mcp.pb.cc.s
+
 mprpcapplication.o: mprpcapplication.cpp.o
 
 .PHONY : mprpcapplication.o
@@ -353,6 +380,9 @@ help:
 	@echo "... logger.o"
 	@echo "... logger.i"
 	@echo "... logger.s"
+	@echo "... mcp.pb.o"
+	@echo "... mcp.pb.i"
+	@echo "... mcp.pb.s"
 	@echo "... mprpcapplication.o"
 	@echo "... mprpcapplication.i"
 	@echo "... mprpcapplication.s"

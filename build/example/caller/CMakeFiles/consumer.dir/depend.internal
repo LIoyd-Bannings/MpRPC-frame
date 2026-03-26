@@ -6,6 +6,7 @@ example/caller/CMakeFiles/consumer.dir/__/agent.pb.cc.o
  /home/lele/program/MpRPC-frame/example/agent.pb.h
 example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o
  ../example/agent.pb.h
+ ../src/include/consistent_hash.h
  ../src/include/mprpcapplication.h
  ../src/include/mprpcchannel.h
  ../src/include/mprpcconfig.h

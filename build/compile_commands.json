@@ -1,82 +1,87 @@
 [
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcapplication.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcapplication.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcapplication.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcapplication.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/mprpcapplication.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcconfig.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcconfig.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcconfig.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcconfig.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/mprpcconfig.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/rpcheader.pb.cc.o -c /home/lele/program/MpRPC-frame/src/rpcheader.pb.cc",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/rpcheader.pb.cc.o -c /home/lele/program/MpRPC-frame/src/rpcheader.pb.cc",
   "file": "/home/lele/program/MpRPC-frame/src/rpcheader.pb.cc"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/rpcprovider.cpp.o -c /home/lele/program/MpRPC-frame/src/rpcprovider.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mcp.pb.cc.o -c /home/lele/program/MpRPC-frame/src/mcp.pb.cc",
+  "file": "/home/lele/program/MpRPC-frame/src/mcp.pb.cc"
+},
+{
+  "directory": "/home/lele/program/MpRPC-frame/build/src",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/rpcprovider.cpp.o -c /home/lele/program/MpRPC-frame/src/rpcprovider.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/rpcprovider.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcchannel.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcchannel.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpcchannel.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcchannel.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/mprpcchannel.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpccontroller.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpccontroller.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/mprpccontroller.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpccontroller.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/mprpccontroller.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/logger.cpp.o -c /home/lele/program/MpRPC-frame/src/logger.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/logger.cpp.o -c /home/lele/program/MpRPC-frame/src/logger.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/logger.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/src",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/zookeeperutil.cpp.o -c /home/lele/program/MpRPC-frame/src/zookeeperutil.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/mprpc.dir/zookeeperutil.cpp.o -c /home/lele/program/MpRPC-frame/src/zookeeperutil.cpp",
   "file": "/home/lele/program/MpRPC-frame/src/zookeeperutil.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/callee",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/agentserver.cpp.o -c /home/lele/program/MpRPC-frame/example/callee/agentserver.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/agentserver.cpp.o -c /home/lele/program/MpRPC-frame/example/callee/agentserver.cpp",
   "file": "/home/lele/program/MpRPC-frame/example/callee/agentserver.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/callee",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
   "file": "/home/lele/program/MpRPC-frame/example/agent.pb.cc"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/callee",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/__/db/db.cpp.o -c /home/lele/program/MpRPC-frame/example/db/db.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example -I/home/lele/program/MpRPC-frame/example/callee/../db   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/agent_provider.dir/__/db/db.cpp.o -c /home/lele/program/MpRPC-frame/example/db/db.cpp",
   "file": "/home/lele/program/MpRPC-frame/example/db/db.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/agent_gateway.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/agent_gateway.cpp",
   "file": "/home/lele/program/MpRPC-frame/example/caller/agent_gateway.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/agent_gateway.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/agent_gateway.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
   "file": "/home/lele/program/MpRPC-frame/example/agent.pb.cc"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/test_llm.dir/test_llm.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/test_llm.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/test_llm.dir/test_llm.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/test_llm.cpp",
   "file": "/home/lele/program/MpRPC-frame/example/caller/test_llm.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/consumer.dir/callagentservice.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/callagentservice.cpp",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/consumer.dir/callagentservice.cpp.o -c /home/lele/program/MpRPC-frame/example/caller/callagentservice.cpp",
   "file": "/home/lele/program/MpRPC-frame/example/caller/callagentservice.cpp"
 },
 {
   "directory": "/home/lele/program/MpRPC-frame/build/example/caller",
-  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fno-omit-frame-pointer -g   -o CMakeFiles/consumer.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
+  "command": "/usr/bin/g++   -I/home/lele/program/MpRPC-frame/src/include -I/home/lele/program/MpRPC-frame/example   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g   -o CMakeFiles/consumer.dir/__/agent.pb.cc.o -c /home/lele/program/MpRPC-frame/example/agent.pb.cc",
   "file": "/home/lele/program/MpRPC-frame/example/agent.pb.cc"
 }
 ]

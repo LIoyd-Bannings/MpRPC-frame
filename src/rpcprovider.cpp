@@ -63,15 +63,24 @@ void RpcProvider::Run()
         // service_name /UserServiceRpc
         std::string service_path="/"+sp.first;
          zkCli.Create(service_path.c_str(),nullptr,0);
-         for(auto &mp:sp.second.m_methodMap)
-         {
-                // /service_name/method_name  /UserServiceRpc/Login 存储当前这个rpc服务节点的主机的ip和port
-                std::string method_path=service_path+"/"+mp.first;
-                char method_path_data[128]={0};
-                sprintf(method_path_data,"%s:%d",ip.c_str(),port);
-                //ZOO_EPHEMERAL表示znode是一个临时节点
-                zkCli.Create(method_path.c_str(),method_path_data,strlen(method_path_data),ZOO_EPHEMERAL);
-         }
+        for(auto &mp:sp.second.m_methodMap)
+        {
+                // 1. 把 method 变成持久性节点（相当于创建了一个文件夹）
+                std::string method_path = service_path + "/" + mp.first;
+                zkCli.Create(method_path.c_str(), nullptr, 0, 0); // 0 代表 ZOO_PERSISTENT (永久节点)
+
+                // 2. 组装真正的物理机 IP 字符串
+                char ip_port[128] = {0};
+                sprintf(ip_port, "%s:%d", ip.c_str(), port);
+
+                // 3. 把 IP 作为临时节点，挂在 method 文件夹下面！
+                std::string node_path = method_path + "/" + ip_port;
+                
+                // 这里才使用 ZOO_EPHEMERAL，机器一断电，这个 IP 节点自动消失！
+                zkCli.Create(node_path.c_str(), ip_port, strlen(ip_port), ZOO_EPHEMERAL);
+                
+                std::cout << "[服务注册] 成功挂载节点: " << node_path << "\n";
+        }
     }   
    
 
@@ -187,12 +196,25 @@ void RpcProvider::SendRpcResponse(const muduo::net::TcpConnectionPtr &conn, goog
     std::string response_str;
     if (response->SerializeToString(&response_str)) // response序列化
     {
-        // 序列化成功后  通过网络把rpc方法执行的结果发送回rpc的调用方
-        conn->send(response_str);
-    }
+        // // 序列化成功后  通过网络把rpc方法执行的结果发送回rpc的调用方
+        // conn->send(response_str);
+        // 1. 计算出序列化后的真实数据长度
+        uint32_t body_size=response_str.size();
+
+        //2.转换为网络字节序
+        uint32_t body_size_net=htonl(body_size);
+        
+        //组装最终的发送数据 4字节包头 +正式数据包体
+        std::string send_str;
+        send_str.insert(0, std::string((char*)&body_size_net, 4));
+        send_str+=response_str;
+        //一次性发给网关
+        conn->send(send_str);
+    
+    }   
     else
     {
         std::cout << "serialize  response_str error" << std::endl;
     }
-    conn->shutdown(); // 模拟http的短链接服务 由rpcprovider主动断开连接
+    //conn->shutdown(); // 模拟http的短链接服务 由rpcprovider主动断开连接
 }

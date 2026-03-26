@@ -96,9 +96,22 @@ src/CMakeFiles/mprpc.dir/rpcheader.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mprpc.dir/rpcheader.pb.cc.s"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lele/program/MpRPC-frame/src/rpcheader.pb.cc -o CMakeFiles/mprpc.dir/rpcheader.pb.cc.s
 
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.o: src/CMakeFiles/mprpc.dir/flags.make
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.o: ../src/mcp.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/mprpc.dir/mcp.pb.cc.o"
+	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/mcp.pb.cc.o -c /home/lele/program/MpRPC-frame/src/mcp.pb.cc
+
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mprpc.dir/mcp.pb.cc.i"
+	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lele/program/MpRPC-frame/src/mcp.pb.cc > CMakeFiles/mprpc.dir/mcp.pb.cc.i
+
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mprpc.dir/mcp.pb.cc.s"
+	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lele/program/MpRPC-frame/src/mcp.pb.cc -o CMakeFiles/mprpc.dir/mcp.pb.cc.s
+
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: src/CMakeFiles/mprpc.dir/flags.make
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/rpcprovider.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/rpcprovider.cpp.o -c /home/lele/program/MpRPC-frame/src/rpcprovider.cpp
 
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.i: cmake_force
@@ -111,7 +124,7 @@ src/CMakeFiles/mprpc.dir/rpcprovider.cpp.s: cmake_force
 
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: src/CMakeFiles/mprpc.dir/flags.make
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: ../src/mprpcchannel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/mprpcchannel.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpcchannel.cpp
 
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.i: cmake_force
@@ -124,7 +137,7 @@ src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.s: cmake_force
 
 src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o: src/CMakeFiles/mprpc.dir/flags.make
 src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o: ../src/mprpccontroller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/mprpccontroller.cpp.o -c /home/lele/program/MpRPC-frame/src/mprpccontroller.cpp
 
 src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.i: cmake_force
@@ -137,7 +150,7 @@ src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.s: cmake_force
 
 src/CMakeFiles/mprpc.dir/logger.cpp.o: src/CMakeFiles/mprpc.dir/flags.make
 src/CMakeFiles/mprpc.dir/logger.cpp.o: ../src/logger.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/mprpc.dir/logger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/CMakeFiles/mprpc.dir/logger.cpp.o"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/logger.cpp.o -c /home/lele/program/MpRPC-frame/src/logger.cpp
 
 src/CMakeFiles/mprpc.dir/logger.cpp.i: cmake_force
@@ -150,7 +163,7 @@ src/CMakeFiles/mprpc.dir/logger.cpp.s: cmake_force
 
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: src/CMakeFiles/mprpc.dir/flags.make
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: ../src/zookeeperutil.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o"
 	cd /home/lele/program/MpRPC-frame/build/src && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mprpc.dir/zookeeperutil.cpp.o -c /home/lele/program/MpRPC-frame/src/zookeeperutil.cpp
 
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.i: cmake_force
@@ -166,6 +179,7 @@ mprpc_OBJECTS = \
 "CMakeFiles/mprpc.dir/mprpcapplication.cpp.o" \
 "CMakeFiles/mprpc.dir/mprpcconfig.cpp.o" \
 "CMakeFiles/mprpc.dir/rpcheader.pb.cc.o" \
+"CMakeFiles/mprpc.dir/mcp.pb.cc.o" \
 "CMakeFiles/mprpc.dir/rpcprovider.cpp.o" \
 "CMakeFiles/mprpc.dir/mprpcchannel.cpp.o" \
 "CMakeFiles/mprpc.dir/mprpccontroller.cpp.o" \
@@ -178,6 +192,7 @@ mprpc_EXTERNAL_OBJECTS =
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/mprpcconfig.cpp.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/rpcheader.pb.cc.o
+../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/mcp.pb.cc.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o
@@ -185,7 +200,7 @@ mprpc_EXTERNAL_OBJECTS =
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/build.make
 ../lib/libmprpc.a: src/CMakeFiles/mprpc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library ../../lib/libmprpc.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lele/program/MpRPC-frame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library ../../lib/libmprpc.a"
 	cd /home/lele/program/MpRPC-frame/build/src && $(CMAKE_COMMAND) -P CMakeFiles/mprpc.dir/cmake_clean_target.cmake
 	cd /home/lele/program/MpRPC-frame/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mprpc.dir/link.txt --verbose=$(VERBOSE)
 

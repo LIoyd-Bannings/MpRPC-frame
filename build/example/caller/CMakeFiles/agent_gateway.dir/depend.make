@@ -4,13 +4,18 @@
 example/caller/CMakeFiles/agent_gateway.dir/__/agent.pb.cc.o: ../example/agent.pb.cc
 example/caller/CMakeFiles/agent_gateway.dir/__/agent.pb.cc.o: ../example/agent.pb.h
 
-example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../example/agent.pb.h
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/consistent_hash.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/httplib.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/json.hpp
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/lockqueue.h
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/logger.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/mprpcapplication.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/mprpcchannel.h
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/mprpcclosure.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/mprpcconfig.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/mprpccontroller.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/threadpool.h
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/include/zookeeperutil.h
+example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../src/mcp.pb.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o: ../example/caller/agent_gateway.cpp
 

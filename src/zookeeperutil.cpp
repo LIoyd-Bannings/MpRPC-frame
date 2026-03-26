@@ -2,7 +2,8 @@
 #include "mprpcapplication.h"
 #include <semaphore.h>
 #include <iostream>
-
+#include<vector>
+#include<string>
 //全局的watcher观察器  zkserver给zkclient的通知
 void global_watcher(zhandle_t *zh,int type,int state,const char* path,void *watcherCtx)
 {
@@ -103,4 +104,28 @@ std::string ZkClient::GetData(const char *path)
         return buffer;
     }
 
+}
+
+// 获取指定路径下的所有子节点 (真正的服务发现核心！)
+std::vector<std::string> ZkClient::GetChildren(const char *path)
+{
+    std::vector<std::string> children_paths;
+    String_vector strings;
+    
+    // 调用 C-API 拉取子节点列表
+    int flag = zoo_get_children(m_zhandle, path, 0, &strings);
+    if (flag == ZOK)
+    {
+        for (int i = 0; i < strings.count; ++i)
+        {
+            children_paths.push_back(strings.data[i]);
+        }
+        // C 语言的坑：用完必须手动释放，否则内存泄漏！
+        deallocate_String_vector(&strings); 
+    }
+    else
+    {
+        std::cout << " [Zookeeper] 获取子节点失败，路径: " << path << "\n";
+    }
+    return children_paths;
 }

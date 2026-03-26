@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/lele/program/MpRPC-frame/bin/consumer"
+			"path" : "/home/lele/program/MpRPC-frame/bin/test_llm"
 		}
 	],
 	"backtrace" : 1,
@@ -12,7 +12,6 @@
 		[
 			"add_executable",
 			"link_directories",
-			"target_link_libraries",
 			"include_directories"
 		],
 		"files" : 
@@ -28,7 +27,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 8,
+				"line" : 10,
 				"parent" : 0
 			},
 			{
@@ -37,25 +36,19 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 16,
+				"line" : 17,
 				"parent" : 2
 			},
 			{
 				"command" : 2,
-				"file" : 0,
-				"line" : 9,
-				"parent" : 0
-			},
-			{
-				"command" : 3,
 				"file" : 1,
-				"line" : 13,
+				"line" : 14,
 				"parent" : 2
 			},
 			{
-				"command" : 3,
+				"command" : 2,
 				"file" : 1,
-				"line" : 14,
+				"line" : 15,
 				"parent" : 2
 			}
 		]
@@ -66,42 +59,34 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -fno-omit-frame-pointer -g  "
+					"fragment" : " -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g  "
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 5,
+					"backtrace" : 4,
 					"path" : "/home/lele/program/MpRPC-frame/src/include"
 				},
 				{
-					"backtrace" : 6,
+					"backtrace" : 5,
 					"path" : "/home/lele/program/MpRPC-frame/example"
 				}
 			],
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
-				0,
-				1
+				0
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"backtrace" : 4,
-			"id" : "mprpc::@145eef247bfb46b6828c"
-		}
-	],
-	"id" : "consumer::@c2a3416f73e845390d82",
+	"id" : "test_llm::@c2a3416f73e845390d82",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-fno-omit-frame-pointer -g",
+				"fragment" : "-fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g",
 				"role" : "flags"
 			},
 			{
@@ -118,35 +103,22 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 4,
-				"fragment" : "../../../lib/libmprpc.a",
+				"fragment" : "-lssl",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lprotobuf",
-				"role" : "libraries"
-			},
-			{
-				"fragment" : "-lmuduo_net",
-				"role" : "libraries"
-			},
-			{
-				"fragment" : "-lmuduo_base",
+				"fragment" : "-lcrypto",
 				"role" : "libraries"
 			},
 			{
 				"fragment" : "-lpthread",
 				"role" : "libraries"
-			},
-			{
-				"fragment" : "-lzookeeper_mt",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "consumer",
-	"nameOnDisk" : "consumer",
+	"name" : "test_llm",
+	"nameOnDisk" : "test_llm",
 	"paths" : 
 	{
 		"build" : "example/caller",
@@ -158,8 +130,7 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				0,
-				1
+				0
 			]
 		}
 	],
@@ -168,13 +139,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "example/caller/callagentservice.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "example/agent.pb.cc",
+			"path" : "example/caller/test_llm.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

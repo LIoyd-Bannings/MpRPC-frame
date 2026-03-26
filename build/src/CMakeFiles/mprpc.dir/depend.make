@@ -5,6 +5,10 @@ src/CMakeFiles/mprpc.dir/logger.cpp.o: ../src/include/lockqueue.h
 src/CMakeFiles/mprpc.dir/logger.cpp.o: ../src/include/logger.h
 src/CMakeFiles/mprpc.dir/logger.cpp.o: ../src/logger.cpp
 
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.o: ../src/mcp.pb.cc
+src/CMakeFiles/mprpc.dir/mcp.pb.cc.o: ../src/mcp.pb.h
+
+src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/consistent_hash.h
 src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/mprpcapplication.h
 src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/mprpcchannel.h
 src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/mprpcconfig.h
@@ -12,6 +16,7 @@ src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/mprpccontroller.
 src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/include/threadpool.h
 src/CMakeFiles/mprpc.dir/mprpcapplication.cpp.o: ../src/mprpcapplication.cpp
 
+src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: ../src/include/consistent_hash.h
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: ../src/include/mprpcapplication.h
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: ../src/include/mprpcchannel.h
 src/CMakeFiles/mprpc.dir/mprpcchannel.cpp.o: ../src/include/mprpcconfig.h
@@ -30,6 +35,7 @@ src/CMakeFiles/mprpc.dir/mprpccontroller.cpp.o: ../src/mprpccontroller.cpp
 src/CMakeFiles/mprpc.dir/rpcheader.pb.cc.o: ../src/include/rpcheader.pb.h
 src/CMakeFiles/mprpc.dir/rpcheader.pb.cc.o: ../src/rpcheader.pb.cc
 
+src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/consistent_hash.h
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/lockqueue.h
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/logger.h
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/mprpcapplication.h
@@ -42,6 +48,7 @@ src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/threadpool.h
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/include/zookeeperutil.h
 src/CMakeFiles/mprpc.dir/rpcprovider.cpp.o: ../src/rpcprovider.cpp
 
+src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: ../src/include/consistent_hash.h
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: ../src/include/mprpcapplication.h
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: ../src/include/mprpcchannel.h
 src/CMakeFiles/mprpc.dir/zookeeperutil.cpp.o: ../src/include/mprpcconfig.h

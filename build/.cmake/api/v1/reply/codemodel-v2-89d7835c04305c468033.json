@@ -106,35 +106,35 @@
 				{
 					"directoryIndex" : 4,
 					"id" : "agent_gateway::@c2a3416f73e845390d82",
-					"jsonFile" : "target-agent_gateway-Debug-54b29552b14dd44bf8cd.json",
+					"jsonFile" : "target-agent_gateway-Debug-1b525486603c3caa9eeb.json",
 					"name" : "agent_gateway",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "agent_provider::@493cd8b262c97a98b12b",
-					"jsonFile" : "target-agent_provider-Debug-4b9aa59a00fc4b4cd3e6.json",
+					"jsonFile" : "target-agent_provider-Debug-6b170f60013ca2916d5a.json",
 					"name" : "agent_provider",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "consumer::@c2a3416f73e845390d82",
-					"jsonFile" : "target-consumer-Debug-88363855ce92bb1a0251.json",
+					"jsonFile" : "target-consumer-Debug-900ba8cbff77cec2f2f2.json",
 					"name" : "consumer",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "mprpc::@145eef247bfb46b6828c",
-					"jsonFile" : "target-mprpc-Debug-c707733cd70f88a787b9.json",
+					"jsonFile" : "target-mprpc-Debug-7ee89badf553fe7619d1.json",
 					"name" : "mprpc",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "test_llm::@c2a3416f73e845390d82",
-					"jsonFile" : "target-test_llm-Debug-b1663a98492736988a0f.json",
+					"jsonFile" : "target-test_llm-Debug-c1e3897d3c82d4d39dec.json",
 					"name" : "test_llm",
 					"projectIndex" : 0
 				}

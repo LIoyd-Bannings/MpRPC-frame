@@ -1,0 +1,169 @@
+2026-03-26 16:28:20,254:863715(0x7f3779d77a40):ZOO_INFO@log_env@753: Client environment:zookeeper.version=zookeeper C client 3.4.13
+2026-03-26 16:28:20,255:863715(0x7f3779d77a40):ZOO_INFO@log_env@757: Client environment:host.name=fighting
+2026-03-26 16:28:20,255:863715(0x7f3779d77a40):ZOO_INFO@log_env@764: Client environment:os.name=Linux
+2026-03-26 16:28:20,255:863715(0x7f3779d77a40):ZOO_INFO@log_env@765: Client environment:os.arch=5.4.0-216-generic
+2026-03-26 16:28:20,255:863715(0x7f3779d77a40):ZOO_INFO@log_env@766: Client environment:os.version=#236-Ubuntu SMP Fri Apr 11 19:53:21 UTC 2025
+2026-03-26 16:28:20,257:863715(0x7f3779d77a40):ZOO_INFO@log_env@774: Client environment:user.name=lele
+2026-03-26 16:28:20,258:863715(0x7f3779d77a40):ZOO_INFO@log_env@782: Client environment:user.home=/home/lele
+2026-03-26 16:28:20,258:863715(0x7f3779d77a40):ZOO_INFO@log_env@794: Client environment:user.dir=/home/lele/program/MpRPC-frame/bin
+2026-03-26 16:28:20,259:863715(0x7f3779d77a40):ZOO_INFO@zookeeper_init@818: Initiating client connection, host=127.0.0.1:2181 sessionTimeout=30000 watcher=0x562fd0cb1138 sessionId=0 sessionPasswd=<null> context=(nil) flags=0
+2026-03-26 16:28:20,275:863715(0x7f37760fe700):ZOO_INFO@check_events@1763: initiated connection to server [127.0.0.1:2181]
+2026-03-26 16:28:20,280:863715(0x7f37760fe700):ZOO_INFO@check_events@1809: session establishment complete on server [127.0.0.1:2181], sessionId=0x100331f4c011f6b, negotiated timeout=30000
+[MCP 框架] 成功装载物理工具: SearchDataBase
+[MCP 框架] 成功装载物理工具: ExecutePython
+🚀 MCP Server (智能体物理节点) 组装完毕，正在等待网关调度...
+Watcher Check: type=-1 state=3
+zookeeper _init success!
+znode create success...path:/McpToolService/CallTool/127.0.0.1:8001
+[服务注册] 成功挂载节点: /McpToolService/CallTool/127.0.0.1:8001
+znode create success...path:/McpToolService/ListTools/127.0.0.1:8001
+[服务注册] 成功挂载节点: /McpToolService/ListTools/127.0.0.1:8001
+RpcProvider start service at ip:127.0.0.1 port:8001
+20260326 08:28:23.840775Z 863715 INFO  TcpServer::newConnection [RpcProvider] - new connection [RpcProvider-127.0.0.1:8001#1] from 127.0.0.1:40734 - TcpServer.cc:80
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallToolS
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBaseA{"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 26;"}
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool)
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC friend;"}
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool@
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase.{"sql": "SELECT id, name FROM user LIMIT 20;"}
+======================================
+======================================
+header_size:29
+rpc_header_str:
+McpToolServiceCallTool�
+service_name:McpToolService
+method_name:CallTool
+args_str:
+ExecutePython�{"code": "# 分析朋友关系数据\nfriend_data = [\n    {\"userid\": 13, \"friendid\": 15},\n    {\"userid\": 13, \"friendid\": 21},\n    {\"userid\": 16, \"friendid\": 25},\n    {\"userid\": 21, \"friendid\": 13},\n    {\"userid\": 21, \"friendid\": 15}\n]\n\n# 用户ID到姓名的映射\nuser_mapping = {\n    13: \"zhang san\",\n    15: \"li si\",\n    16: \"liu shuo\",\n    21: \"gao yang\",\n    25: \"未知用户\"  # 这个ID在user表中没有找到\n}\n\nprint(\"=== 朋友关系分析 ===\")\nprint()\n\n# 显示每个用户的朋友\nfriends_by_user = {}\nfor rel in friend_data:\n    user_id = rel[\"userid\"]\n    friend_id = rel[\"friendid\"]\n    \n    user_name = user_mapping.get(user_id, f\"用户{user_id}\")\n    friend_name = user_mapping.get(friend_id, f\"用户{friend_id}\")\n    \n    if user_name not in friends_by_user:\n        friends_by_user[user_name] = []\n    friends_by_user[user_name].append(friend_name)\n\nprint(\"每个用户的朋友列表：\")\nfor user, friends in sorted(friends_by_user.items()):\n    print(f\"{user} 的朋友：{', '.join(friends)}\")\n\nprint()\nprint(\"=== 双向朋友关系 ===\")\n\n# 检查双向关系（互相加为好友）\nbidirectional_pairs = set()\nfor rel1 in friend_data:\n    for rel2 in friend_data:\n        if (rel1[\"userid\"] == rel2[\"friendid\"] and \n            rel1[\"friendid\"] == rel2[\"userid\"]):\n            # 创建排序后的元组，避免重复\n            pair = tuple(sorted([rel1[\"userid\"], rel1[\"friendid\"]]))\n            bidirectional_pairs.add(pair)\n\nif bidirectional_pairs:\n    for pair in bidirectional_pairs:\n        user1_name = user_mapping.get(pair[0], f\"用户{pair[0]}\")\n        user2_name = user_mapping.get(pair[1], f\"用户{pair[1]}\")\n        print(f\"{user1_name} 和 {user2_name} 是双向好友（互相加为好友）\")\nelse:\n    print(\"没有发现双向好友关系\")\n\nprint()\nprint(\"=== 单向朋友关系 ===\")\n# 找出单向关系\nall_relationships = [(rel[\"userid\"], rel[\"friendid\"]) for rel in friend_data]\nfor user_id, friend_id in all_relationships:\n    if (friend_id, user_id) not in all_relationships:\n        user_name = user_mapping.get(user_id, f\"用户{user_id}\")\n        friend_name = user_mapping.get(friend_id, f\"用户{friend_id}\")\n        print(f\"{user_name} 单向添加了 {friend_name} 为好友\")"}
+======================================
+2026-03-26 16:33:40,582:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+20260326 08:34:18.582046Z 863715 INFO  TcpServer::removeConnectionInLoop [RpcProvider] - connection RpcProvider-127.0.0.1:8001#1 - TcpServer.cc:109
+20260326 08:34:22.019289Z 863715 INFO  TcpServer::newConnection [RpcProvider] - new connection [RpcProvider-127.0.0.1:8001#2] from 127.0.0.1:49918 - TcpServer.cc:80
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallToolJ
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase8{"sql": "SELECT id, name, state FROM user ORDER BY id;"}
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool)
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC friend;"}
+======================================
+======================================
+header_size:29
+rpc_header_str:
+McpToolServiceCallTool�
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase�{"sql": "SELECT \n    u1.name as user_name,\n    u2.name as friend_name\nFROM friend f\nJOIN user u1 ON f.userid = u1.id\nJOIN user u2 ON f.friendid = u2.id\nORDER BY u1.name, u2.name\nLIMIT 10;"}
+======================================
+2026-03-26 16:40:20,932:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+20260326 08:42:06.490190Z 863715 INFO  TcpServer::removeConnectionInLoop [RpcProvider] - connection RpcProvider-127.0.0.1:8001#2 - TcpServer.cc:109
+20260326 08:42:08.899195Z 863715 INFO  TcpServer::newConnection [RpcProvider] - new connection [RpcProvider-127.0.0.1:8001#3] from 127.0.0.1:58594 - TcpServer.cc:80
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+======================================
+header_size:27
+rpc_header_str:
+McpToolService	ListTools
+service_name:McpToolService
+method_name:ListTools
+args_str:
+======================================
+2026-03-26 16:43:01,088:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 18ms
+2026-03-26 18:52:28,003:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 19:54:51,280:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 20:03:41,745:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 12ms
+2026-03-26 20:38:53,637:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 14ms
+2026-03-26 20:45:03,985:863715(0x7f37760fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 13ms

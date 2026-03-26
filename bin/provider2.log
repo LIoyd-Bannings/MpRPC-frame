@@ -1,0 +1,99 @@
+2026-03-26 16:28:20,262:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@753: Client environment:zookeeper.version=zookeeper C client 3.4.13
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@757: Client environment:host.name=fighting
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@764: Client environment:os.name=Linux
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@765: Client environment:os.arch=5.4.0-216-generic
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@766: Client environment:os.version=#236-Ubuntu SMP Fri Apr 11 19:53:21 UTC 2025
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@774: Client environment:user.name=lele
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@782: Client environment:user.home=/home/lele
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@log_env@794: Client environment:user.dir=/home/lele/program/MpRPC-frame/bin
+2026-03-26 16:28:20,263:863716(0x7f6cd0ffaa40):ZOO_INFO@zookeeper_init@818: Initiating client connection, host=127.0.0.1:2181 sessionTimeout=30000 watcher=0x55a678342138 sessionId=0 sessionPasswd=<null> context=(nil) flags=0
+2026-03-26 16:28:20,271:863716(0x7f6ccd3fe700):ZOO_INFO@check_events@1763: initiated connection to server [127.0.0.1:2181]
+2026-03-26 16:28:20,272:863716(0x7f6ccd3fe700):ZOO_INFO@check_events@1809: session establishment complete on server [127.0.0.1:2181], sessionId=0x100331f4c011f69, negotiated timeout=30000
+[MCP 框架] 成功装载物理工具: SearchDataBase
+[MCP 框架] 成功装载物理工具: ExecutePython
+🚀 MCP Server (智能体物理节点) 组装完毕，正在等待网关调度...
+Watcher Check: type=-1 state=3
+zookeeper _init success!
+znode create success...path:/McpToolService/CallTool/127.0.0.1:8002
+[服务注册] 成功挂载节点: /McpToolService/CallTool/127.0.0.1:8002
+znode create success...path:/McpToolService/ListTools/127.0.0.1:8002
+[服务注册] 成功挂载节点: /McpToolService/ListTools/127.0.0.1:8002
+RpcProvider start service at ip:127.0.0.1 port:8002
+20260326 08:28:49.472286Z 863716 INFO  TcpServer::newConnection [RpcProvider] - new connection [RpcProvider-127.0.0.1:8002#1] from 127.0.0.1:52922 - TcpServer.cc:80
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool'
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC user;"}
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool'
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC user;"}
+======================================
+======================================
+header_size:29
+rpc_header_str:
+McpToolServiceCallTool�
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase�{"sql": "SELECT \n    u1.name as user_name,\n    u2.name as friend_name\nFROM friend f\nJOIN user u1 ON f.userid = u1.id\nJOIN user u2 ON f.friendid = u2.id\nORDER BY u1.name, u2.name;"}
+======================================
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallToolL
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase:{"sql": "SELECT * FROM friend ORDER BY userid, friendid;"}
+======================================
+20260326 08:34:18.581891Z 863716 INFO  TcpServer::removeConnectionInLoop [RpcProvider] - connection RpcProvider-127.0.0.1:8002#1 - TcpServer.cc:109
+20260326 08:34:41.428573Z 863716 INFO  TcpServer::newConnection [RpcProvider] - new connection [RpcProvider-127.0.0.1:8002#2] from 127.0.0.1:56592 - TcpServer.cc:80
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool'
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC user;"}
+======================================
+2026-03-26 16:35:40,708:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 15ms
+======================================
+header_size:28
+rpc_header_str:
+McpToolServiceCallTool'
+service_name:McpToolService
+method_name:CallTool
+args_str:
+SearchDataBase{"sql": "DESC user;"}
+======================================
+======================================
+header_size:29
+rpc_header_str:
+McpToolServiceCallTool�
+service_name:McpToolService
+method_name:CallTool
+args_str:
+ExecutePython�{"code": "import numpy as np\nimport matplotlib.pyplot as plt\n\n# 创建心形参数方程\nt = np.linspace(0, 2*np.pi, 1000)\nx = 16 * np.sin(t)**3\ny = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)\n\n# 设置图形\nplt.figure(figsize=(8, 8))\nplt.plot(x, y, color='red', linewidth=3)\nplt.fill(x, y, color='red', alpha=0.6)\n\n# 设置图形属性\nplt.title('Heart Shape', fontsize=16, fontweight='bold')\nplt.axis('equal')\nplt.axis('off')\nplt.grid(False)\n\n# 显示图形\nplt.tight_layout()\nplt.show()\n\n# 保存图像\nplt.savefig('heart_shape.png', dpi=100, bbox_inches='tight')\nprint(\"心形图像已生成并保存为 'heart_shape.png'\")"}
+======================================
+Traceback (most recent call last):
+  File "/tmp/agent_exec_1774514377.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+2026-03-26 16:51:01,529:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 17:09:42,569:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 17:19:03,084:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 17:31:03,748:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 17:50:54,827:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 18:10:05,843:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-03-26 20:26:23,007:863716(0x7f6ccd3fe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms

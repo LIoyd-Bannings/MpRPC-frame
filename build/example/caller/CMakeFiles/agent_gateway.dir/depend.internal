@@ -5,12 +5,17 @@ example/caller/CMakeFiles/agent_gateway.dir/__/agent.pb.cc.o
  /home/lele/program/MpRPC-frame/example/agent.pb.cc
  /home/lele/program/MpRPC-frame/example/agent.pb.h
 example/caller/CMakeFiles/agent_gateway.dir/agent_gateway.cpp.o
- ../example/agent.pb.h
+ ../src/include/consistent_hash.h
  ../src/include/httplib.h
  ../src/include/json.hpp
+ ../src/include/lockqueue.h
+ ../src/include/logger.h
  ../src/include/mprpcapplication.h
  ../src/include/mprpcchannel.h
+ ../src/include/mprpcclosure.h
  ../src/include/mprpcconfig.h
  ../src/include/mprpccontroller.h
  ../src/include/threadpool.h
+ ../src/include/zookeeperutil.h
+ ../src/mcp.pb.h
  /home/lele/program/MpRPC-frame/example/caller/agent_gateway.cpp

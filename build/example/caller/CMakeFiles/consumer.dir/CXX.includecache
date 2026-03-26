@@ -46,6 +46,16 @@ google/protobuf/port_def.inc
 google/protobuf/port_undef.inc
 -
 
+../src/include/consistent_hash.h
+map
+-
+string
+-
+mutex
+-
+functional
+-
+
 ../src/include/mprpcapplication.h
 mprpcconfig.h
 ../src/include/mprpcconfig.h
@@ -63,6 +73,14 @@ google/protobuf/message.h
 -
 threadpool.h
 ../src/include/threadpool.h
+memory
+-
+unordered_map
+-
+mutex
+-
+consistent_hash.h
+../src/include/consistent_hash.h
 
 ../src/include/mprpcconfig.h
 unordered_map

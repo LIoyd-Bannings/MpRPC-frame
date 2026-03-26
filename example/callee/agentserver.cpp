@@ -1,164 +1,121 @@
-#include<iostream>
-#include<string>
-#include"agent.pb.h"
-#include"json.hpp"
-#include"logger.h"
-#include"mprpcapplication.h"
-#include"rpcprovider.h"
-#include"db.h"
+#include <iostream>
+#include <string>
+#include <functional>
+#include "json.hpp"
+#include "logger.h"
+#include "mprpcapplication.h"
+#include "rpcprovider.h"
+#include "db.h"
 #include <cstdio>
-using json=nlohmann::json;
+// 引入 MCP 标准服务框架
+#include "mcp_service_impl.h" 
 
-class AgentService:public ai_agent::AgentServiceRpc{
-public:
-//重写Execute方法
-    void Execute(::google::protobuf::RpcController* controller,
-                 const ::ai_agent::ToolCallRequest* request,
-                 ::ai_agent::ToolCallResponse* response,
-                 ::google::protobuf::Closure* done)override
-    {
-        //拆开信封 获取元数据
-        std::string trace_id=request->trace_id();
-        std::string tool_name=request->tool_name();
-        std::string args_json_str=request->args_json();
+using json = nlohmann::json;
 
-        //每一次核心调度
-        LOG_INFO("[TraceID: %s] 收到大模型工具调用指令, 目标工具: %s", trace_id.c_str(), tool_name.c_str());
+// =========================================================================
+//  业务隔离区：每一个工具都是一个极其纯粹的 C++ 函数，互不干扰
+// =========================================================================
 
-        //核心 JSON解析与动态路由防线
-        try{
-            //将字符串反序列化为JSON对象
-            auto args=json::parse(args_json_str);
+// 工具 1：查数据库
+std::string DoSearchDataBase(const std::string& args_json_str) {
+    LOG_INFO("开始执行工具: SearchDataBase, 参数: %s", args_json_str.c_str());
+    try {
+        auto args = json::parse(args_json_str);
+        std::string sql_query = args.value("sql", "");
+        if (sql_query.empty()) return "ERROR: SQL statement is empty.";
 
-            std::string exec_result;//用来存放工具执行的最终结果
-
-            if(tool_name == "SearchDataBase")
-            {
-                // 1. 从 Agent 传来的 JSON 中提取要执行的真实 SQL 语句
-                // 假设大模型生成了: {"sql": "select id, name, state from user limit 3"}
-                std::string sql_query=args.value("sql","");
-                if(sql_query.empty())
-                {
-                    exec_result="ERROR: SQL statement is empty.";
-                }
-                else
-                {
-                    //启动MYSQL连接
-                    MySQL mysql;
-                    if(!mysql.connect("127.0.0.1", 3306, "root", "123456", "chat"))
-                    {
-                        exec_result="ERROR: Failed to connect to local MySQL database.";
-                    }else{
-                        LOG_INFO("[TraceID: %s] 正在执行大模型派发的 SQL: %s", trace_id.c_str(), sql_query.c_str());
-                        
-                        //执行真实查询
-                        MYSQL_RES* res=mysql.query(sql_query);
-                        if(res==nullptr)
-                        {
-                            exec_result = "ERROR: SQL execution failed or returned no result.";  
-                        }else{
-                            //4.将MySQL结果集组装回JSON字符串，图给大模型！
-                            json result_array=json::array();
-                            MYSQL_ROW row;
-
-                            //获取列数 以便通用处理任何大模型发来的查询
-                            int num_fields=mysql_num_fields(res);
-                            MYSQL_FIELD *fields=mysql_fetch_fields(res);
-
-                            while((row=mysql_fetch_row(res))!=nullptr)
-                            {
-                                json row_json;
-                                for(int i=0;i<num_fields;++i)
-                                {
-                                    //防御性编程  数据库字段可能为NULL
-                                    std::string field_name=fields[i].name;
-                                    std::string field_value=row[i]?row[i]:"NULL";
-                                    row_json[field_name]=field_value;
-                                }
-                                result_array.push_back(row_json);
-                            }
-                            mysql_free_result(res);
-
-                            //把整个结果数组转化为字符串 这就是Agent的Observation
-                            exec_result=result_array.dump();
-                        }
-                    }
-                }
-            
-            
-            }   
-            else if(tool_name == "ExecutePython")
-            {
-                //拿到大模型生成的真实的Python代码
-                std::string code=args.value("code","print('hello world')");
-
-                //将代码写入本地临时文件
-                std::string file_name="/tmp/agent_exec_"+trace_id+".py";
-                FILE* fp=fopen(file_name.c_str(),"w");
-                if(fp)
-                {   
-                    fputs(code.c_str(),fp);
-                    fclose(fp);
-                }
-
-                //核心  使用popen真实调用Python解释器，并且捕获输出
-                std::string command="python3 "+file_name;
-                FILE* pipe=popen(command.c_str(),"r");
-                if(!pipe)
-                {
-                    exec_result = "ERROR: Failed to open python pipe.";
-
-                }else{
-                    char buffer[128];
-                    exec_result="";
-                    //循环读取Python脚本的stdout标准输出
-                    while(fgets(buffer,sizeof(buffer),pipe)!=nullptr)
-                    {
-                        exec_result+=buffer;
-                    }
-                    pclose(pipe);
-                }
-
-                //清理现场
-                remove(file_name.c_str());
-                LOG_INFO("[TraceID: %s] Python真实执行完毕, 结果长度: %zu", trace_id.c_str(), exec_result.length());
-            }else{
-                LOG_ERR("[TraceID: %s] 非法工具调用: %s", trace_id.c_str(), tool_name.c_str());
-                response->mutable_result()->set_errcode(-1);
-                response->mutable_result()->set_errmsg("Unknown Tool");
-                done->Run();
-                return;
-            }
-             response->mutable_result()->set_errcode(0);
-             response->mutable_result()->set_errmsg("Execute Success");
-             response->set_output(exec_result);  
-
-
-        } catch(json::parse_error& e)
-        {
-         // 极其关键的防御：如果大模型吐出的 JSON 格式烂了（少个括号之类），
-            // nlohmann 会抛出异常。你不 catch，你的整个调度节点直接 Core Dump 宕机！
-            LOG_ERR("[TraceID: %s] JSON 解析引发致命异常: %s, 原始载荷: %s", 
-                    trace_id.c_str(), e.what(), args_json_str.c_str());
-            
-            response->mutable_result()->set_errcode(-2);
-            response->mutable_result()->set_errmsg("JSON Parse Error");   
+        MySQL mysql;
+        if (!mysql.connect("127.0.0.1", 3306, "root", "123456", "chat")) {
+            return "ERROR: Failed to connect to local MySQL database.";
         }
-        //4.执行回调 交给底层的Muduo网络层序列化并发送给客户端
-        done->Run();
+
+        MYSQL_RES* res = mysql.query(sql_query);
+        if (res == nullptr) return "ERROR: SQL execution failed or returned no result.";
+
+        json result_array = json::array();
+        MYSQL_ROW row;
+        int num_fields = mysql_num_fields(res);
+        MYSQL_FIELD* fields = mysql_fetch_fields(res);
+
+        while ((row = mysql_fetch_row(res)) != nullptr) {
+            json row_json;
+            for (int i = 0; i < num_fields; ++i) {
+                std::string field_name = fields[i].name;
+                std::string field_value = row[i] ? row[i] : "NULL";
+                row_json[field_name] = field_value;
+            }
+            result_array.push_back(row_json);
+        }
+        mysql_free_result(res);
+        return result_array.dump();
+    } catch (json::parse_error& e) {
+        return std::string("JSON Parse Error: ") + e.what();
     }
-};
+}
 
-//启动节点的主函数
-int main(int argc, char**argv)
-{
-    //框架初始化
-    MprpcApplication::Init(argc,argv);
-    //把Agent调度服务器发布到RPC节点上！
+// 工具 2：执行 Python 物理沙盒
+std::string DoExecutePython(const std::string& args_json_str) {
+    LOG_INFO("开始执行工具: ExecutePython, 参数: %s", args_json_str.c_str());
+    try {
+        auto args = json::parse(args_json_str);
+        std::string code = args.value("code", "print('hello world')");
+
+        // 用时间戳替代之前的 trace_id，保证文件名唯一
+        std::string file_name = "/tmp/agent_exec_" + std::to_string(time(nullptr)) + ".py";
+        FILE* fp = fopen(file_name.c_str(), "w");
+        if (fp) {
+            fputs(code.c_str(), fp);
+            fclose(fp);
+        }
+
+        std::string command = "python3 " + file_name+" 2>&1";
+        FILE* pipe = popen(command.c_str(), "r");
+        if (!pipe) return "ERROR: Failed to open python pipe.";
+
+        char buffer[128];
+        std::string exec_result = "";
+        while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+            exec_result += buffer;
+        }
+        pclose(pipe);
+        remove(file_name.c_str());
+        return exec_result;
+    } catch (json::parse_error& e) {
+        return std::string("JSON Parse Error: ") + e.what();
+    }
+}
+
+
+// =========================================================================
+// 🚀 节点启动区：在这里像搭积木一样，把能力注册到 MCP 框架里！
+// =========================================================================
+int main(int argc, char** argv) {
+    MprpcApplication::Init(argc, argv);
     RpcProvider provider;
-    provider.NotifyService(new AgentService());
 
-    //死守本机端口  等待大模型流量涌入
+    // 1. 实例化咱们的 MCP 标准服务
+    McpServiceImpl* mcp_server = new McpServiceImpl();
+
+    // 2. 🌟 极其震撼的动态注入：这台机器接什么活，在这里说了算！
+    mcp_server->RegisterTool(
+        "SearchDataBase",
+        "你是高级数据库管理员。你可以执行任何合法的 MySQL 查询语句。如果你不知道当前数据库中有哪些表，请必须先生成并执行 'SHOW TABLES;' 进行探索；如果你不知道某张表的结构，请先生成并执行 'DESC 表名;'。只有在你完全清楚表结构后，再去执行最终的业务查询！绝对不要瞎猜表名和字段！",
+        R"({"type":"object","properties":{"sql":{"type":"string","description":"要执行的真实 MySQL 查询语句"}}})",
+        std::bind(&DoSearchDataBase, std::placeholders::_1)
+    );
+
+    mcp_server->RegisterTool(
+        "ExecutePython",
+        "用于在本地物理机沙盒中执行 Python 3 代码。当用户需要进行复杂的数学计算、算法推演时，必须调用此工具。",
+        R"({"type":"object","properties":{"code":{"type":"string","description":"要执行的真实 Python 脚本代码"}}})",
+        std::bind(&DoExecutePython, std::placeholders::_1)
+    );
+
+    // 3. 将 MCP 服务发布到 Zookeeper
+    provider.NotifyService(mcp_server);
+
+    std::cout << "🚀 MCP Server (智能体物理节点) 组装完毕，正在等待网关调度...\n";
     provider.Run();
+
     return 0;
 }

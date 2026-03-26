@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package mcp;
+
+// 选项：生成 C++ 代码时不生成独立的服务类，而是融入我们的框架
+option cc_generic_services = true;
+
+// ==========================================
+// 1. 定义工具的数据结构 (严格遵循 MCP 规范语义)
+// ==========================================
+message Tool {
+    string name = 1;         // 工具名称，例如 "SearchDataBase"
+    string description = 2;  // 工具描述，给大模型看的，例如 "用于在 MySQL 数据库中执行只读查询"
+    string input_schema = 3; // JSON Schema 字符串，严格规定大模型该怎么传参数
+}
+
+// ==========================================
+// 2. 获取工具列表接口 (ListTools)
+// ==========================================
+message ListToolsRequest {
+    // 留空，暂时不需要传参
+}
+
+message ListToolsResponse {
+    repeated Tool tools = 1; // 物理机返回自己拥有的所有工具列表
+}
+
+// ==========================================
+// 3. 执行工具接口 (CallTool)
+// ==========================================
+message CallToolRequest {
+    string name = 1;         // 大模型决定调用的工具名称
+    string arguments = 2;    // 大模型生成的具体参数 (JSON 字符串)，例如 {"sql": "SHOW TABLES;"}
+}
+
+message CallToolResponse {
+    bool is_error = 1;       // 执行是否出错
+    string content = 2;      // 执行结果的纯文本（比如数据库查出来的行数据）
+}
+
+// ==========================================
+// 4. MCP 标准服务接口
+// ==========================================
+service McpToolService {
+    // 网关用来动态发现底层有哪些技能
+    rpc ListTools(ListToolsRequest) returns(ListToolsResponse);
+    
+    // 网关用来让底层执行具体的技能
+    rpc CallTool(CallToolRequest) returns(CallToolResponse);
+}

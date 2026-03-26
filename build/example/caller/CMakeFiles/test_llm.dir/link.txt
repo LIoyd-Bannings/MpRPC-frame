@@ -1,1 +1,1 @@
-/usr/bin/g++   -fno-omit-frame-pointer -g  -rdynamic CMakeFiles/test_llm.dir/test_llm.cpp.o  -o ../../../bin/test_llm   -L/home/lele/program/MpRPC-frame/lib  -Wl,-rpath,/home/lele/program/MpRPC-frame/lib -lssl -lcrypto -lpthread 
+/usr/bin/g++   -fsanitize=address -fno-omit-frame-pointer -g -fno-omit-frame-pointer -g  -rdynamic CMakeFiles/test_llm.dir/test_llm.cpp.o  -o ../../../bin/test_llm   -L/home/lele/program/MpRPC-frame/lib  -Wl,-rpath,/home/lele/program/MpRPC-frame/lib -lssl -lcrypto -lpthread 

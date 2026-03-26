@@ -5,6 +5,7 @@ example/caller/CMakeFiles/consumer.dir/__/agent.pb.cc.o: ../example/agent.pb.cc
 example/caller/CMakeFiles/consumer.dir/__/agent.pb.cc.o: ../example/agent.pb.h
 
 example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o: ../example/agent.pb.h
+example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o: ../src/include/consistent_hash.h
 example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o: ../src/include/mprpcapplication.h
 example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o: ../src/include/mprpcchannel.h
 example/caller/CMakeFiles/consumer.dir/callagentservice.cpp.o: ../src/include/mprpcconfig.h
