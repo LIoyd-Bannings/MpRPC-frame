@@ -47,7 +47,7 @@ mkdir build && cd build
 cmake ..
 make -j4
 ```
-###3.运行为服务器集群
+### 3.运行为服务器集群
 ```bash
 # 终端 A: 确保 Zookeeper 服务已在后台运行 (默认 2181 端口)
 # sudo ./zkServer.sh start
