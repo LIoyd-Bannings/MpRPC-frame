@@ -1,5 +1,5 @@
 #include "db.h"
-#include <muduo/base/Logging.h>
+#include "logger.h"
 // 数据库配置信息
 //static string server = "127.0.0.1";
 //static string user = "root";
@@ -25,7 +25,7 @@ bool MySQL::connect(string ip, unsigned short port, string user, string pwd, str
 {
     if(_conn==nullptr)//f防止init失败
     {
-        LOG_ERROR << "MySQL init failed!";
+        LOG_ERR("MySQL init failed!");
         return false;
     }
     MYSQL *p = mysql_real_connect(_conn, ip.c_str(), user.c_str(), pwd.c_str(), dbname.c_str(), port, nullptr, 0);
@@ -40,9 +40,9 @@ bool MySQL::connect(string ip, unsigned short port, string user, string pwd, str
     }
     else
     {
-        LOG_INFO << "connect mysql fail!";
-         
-        LOG_ERROR << "Connect mysql fail! Error: " << mysql_error(_conn);
+        LOG_INFO("connect mysql fail!");
+        // 🌟 改用格式化输出，%s 接收 mysql_error
+        LOG_ERR("Connect mysql fail! Error: %s", mysql_error(_conn));
     }
     return p;
 }
@@ -53,8 +53,7 @@ bool MySQL::update(string sql)
     if (mysql_query(_conn, sql.c_str()))
     {
         // 【修改】加上 mysql_error(_conn)
-        LOG_INFO << __FILE__ << ":" << __LINE__ << ":" 
-                 << sql << "更新失败！ 错误原因: " << mysql_error(_conn);
+        LOG_INFO("%s:%d:%s更新失败！ 错误原因: %s", __FILE__, __LINE__, sql.c_str(), mysql_error(_conn));
         return false;
     }
     return true;
@@ -66,8 +65,7 @@ MYSQL_RES *MySQL::query(string sql)
     {
         //LOG_INFO << __FILE__ << ": " << __LINE__ << ":" << sql << "查询失败！";
         // 【修改】加上 mysql_error(_conn)
-        LOG_INFO << __FILE__ << ":" << __LINE__ << ":" 
-                 << sql << "查询失败！ 错误原因: " << mysql_error(_conn);
+        LOG_INFO("%s:%d:%s查询失败！ 错误原因: %s", __FILE__, __LINE__, sql.c_str(), mysql_error(_conn));
                  return nullptr;
     }
 

@@ -7,6 +7,16 @@
 #include <unordered_map>
 #include <mutex>
 #include "consistent_hash.h"
+
+// 增加异步上下文结构
+struct AsyncRpcContext
+{
+    google::protobuf::Message *response;// 存放返回结果的内存地址
+    google::protobuf::Closure *done;// 业务层的收尾回调（闭包）
+    // 增加一个时间戳，后续可以做超时清理
+    std::chrono::steady_clock::time_point start_time;// 用于超时监控
+};
+
 class MprpcChannel : public google::protobuf::RpcChannel, public std::enable_shared_from_this<MprpcChannel>
 {
 public:
@@ -16,6 +26,9 @@ public:
                     google::protobuf::RpcController *controller, const google::protobuf::Message *request,
                     google::protobuf::Message *response, google::protobuf::Closure *done) override;
 
+    // 新增：由 Poller 线程调用的分发函数
+    static void HandleRpcResponse(const std::string &id, const std::string &data,ThreadPool* pool);
+
 private:
     ThreadPool *threadpool;
     // 本地路由缓存表
@@ -23,11 +36,8 @@ private:
     // 保护路由表的互斥锁
     std::mutex cache_mutex_;
 
-    // ==========================================================
-    // 【现在加的】TCP 连接池
-    // Key: "IP:Port" (例如 "192.168.1.10:8000")
-    // Value: 存放空闲 socket 句柄 (clientfd) 的队列
-    // ==========================================================
-    std::unordered_map<std::string, std::queue<int>> conn_pool_;
-    std::mutex conn_mutex_; // 保护连接池的锁
+    // 核心：Correlation ID -> 闭包上下文
+    static std::unordered_map<std::string, AsyncRpcContext> pending_map_;
+    static std::mutex map_mutex_;
+    static std::atomic<uint64_t> uuid_gen_;
 };

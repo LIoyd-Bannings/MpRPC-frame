@@ -1,13 +1,23 @@
+// #pragma once
+// #include "google/protobuf/service.h"
+// #include <muduo/net/TcpServer.h>
+// #include <muduo/net/EventLoop.h>
+// #include <muduo/net/InetAddress.h>
+// #include <muduo/net/TcpConnection.h>
+// #include<functional>
+// #include<string>
+// #include<google/protobuf/descriptor.h>
+// #include<unordered_map>
+// #include "threadpool.h"
+
 #pragma once
 #include "google/protobuf/service.h"
-#include <muduo/net/TcpServer.h>
-#include <muduo/net/EventLoop.h>
-#include <muduo/net/InetAddress.h>
-#include <muduo/net/TcpConnection.h>
-#include<functional>
-#include<string>
-#include<google/protobuf/descriptor.h>
-#include<unordered_map>
+#include <google/protobuf/descriptor.h>
+#include <unordered_map>
+#include <string>
+#include <memory>
+#include <mutex>
+#include <zmq.hpp>
 #include "threadpool.h"
 // 框架提供的专门负责发布rpc服务的网络对象类
 class RpcProvider
@@ -20,8 +30,8 @@ public:
     void Run();
 
 private:
-    // 组合eventloop
-    muduo::net::EventLoop m_eventLopp;
+    // // 组合eventloop
+    // muduo::net::EventLoop m_eventLopp;
 
     //service服务类型信息
     struct ServiceInfo
@@ -31,17 +41,27 @@ private:
     };
     std::unordered_map<std::string,ServiceInfo>m_serviceMap;//存储注册成功的服务对象和服务方法的所有信息
 
-    // 新的socket连接回调
-    void OnConnection(const muduo::net::TcpConnectionPtr &conn);
+    // // 新的socket连接回调
+    // void OnConnection(const muduo::net::TcpConnectionPtr &conn);
 
-    //已建立连接用户的读写事件回调
-    void OnMessage(const muduo::net::TcpConnectionPtr &,
-                   muduo::net::Buffer *,
-                   muduo::Timestamp);
+    // //已建立连接用户的读写事件回调
+    // void OnMessage(const muduo::net::TcpConnectionPtr &,
+    //                muduo::net::Buffer *,
+    //                muduo::Timestamp);
 
 
-    //Closure的回调操作 用于序列化rpc的响应和网络发送
-    void SendRpcResponse(const muduo::net::TcpConnectionPtr &,google::protobuf::Message*);
+    // //Closure的回调操作 用于序列化rpc的响应和网络发送
+    // void SendRpcResponse(const muduo::net::TcpConnectionPtr &,google::protobuf::Message*);
     std::unique_ptr<ThreadPool> m_threadpool;
+
+    // ==========================================================
+    // ZeroMQ 核动力引擎组件
+    // ==========================================================
+    std::unique_ptr<zmq::context_t> zmq_context_;
+    std::unique_ptr<zmq::socket_t> router_socket_;
+    std::mutex socket_mutex_; // 极度关键：保护 ZMQ socket 在多线程并发回信时的安全
+
+    // Closure 的回调操作：用于把大模型算完的响应，原路退回给网关！
+    void SendRpcResponse(std::string identity_str, std::string req_id_str, google::protobuf::Message* response);
 
 };
