@@ -18,6 +18,13 @@
 #include <sstream>
 #include"ConnectionPool.h"
 #include<ctime>
+#include <fstream>
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <array>
+#include <sys/time.h>
 using json = nlohmann::json;
 
 // =========================================================================
@@ -73,121 +80,172 @@ std::string DoSearchDataBase(const std::string& args_json_str) {
     
 }
 
-// 工具 2：执行 Python 物理沙盒
-std::string DoExecutePython(const std::string& args_json_str) {
-   LOG_INFO("开始执行工具: ExecutePython, 参数: %s", args_json_str.c_str());
-    try {
-        auto args = json::parse(args_json_str);
-        std::string code = args.value("code", "print('hello world')");
+// // 工具 2：执行 Python 物理沙盒
+// std::string DoExecutePython(const std::string& args_json_str) {
+//    LOG_INFO("开始执行工具: ExecutePython, 参数: %s", args_json_str.c_str());
+//     try {
+//         auto args = json::parse(args_json_str);
+//         std::string code = args.value("code", "print('hello world')");
 
-        // 1. 生成唯一的文件名，防止并发冲突
-        std::string timestamp = std::to_string(time(nullptr));
-        std::string file_name = "/tmp/agent_exec_" + timestamp + ".py";
-        std::string out_file = "/tmp/agent_out_" + timestamp + ".txt";
+//         // 1. 生成唯一的文件名，防止并发冲突
+//         std::string timestamp = std::to_string(time(nullptr));
+//         std::string file_name = "/tmp/agent_exec_" + timestamp + ".py";
+//         std::string out_file = "/tmp/agent_out_" + timestamp + ".txt";
 
-        FILE* fp = fopen(file_name.c_str(), "w");
-        if (fp) {
-            fputs(code.c_str(), fp);
-            fclose(fp);
-        }
+//         FILE* fp = fopen(file_name.c_str(), "w");
+//         if (fp) {
+//             fputs(code.c_str(), fp);
+//             fclose(fp);
+//         }
 
-        std::string exec_result = "";
+//         std::string exec_result = "";
         
-        // =====================================================================
-        //  [核心防线] Linux OS 物理沙盒执行器
-        // =====================================================================
-        pid_t pid = fork(); // 影分身：克隆子进程
+//         // =====================================================================
+//         //  [核心防线] Linux OS 物理沙盒执行器
+//         // =====================================================================
+//         pid_t pid = fork(); // 影分身：克隆子进程
 
-        if (pid < 0) {
-            return "ERROR: 沙盒创建失败 (fork error)";
-        } 
-        else if (pid == 0) 
-        {
-            // ---------------------------------------------------------
-            //  [子进程/囚犯]：戴上资源枷锁，准备接管 Python
-            // ---------------------------------------------------------
+//         if (pid < 0) {
+//             return "ERROR: 沙盒创建失败 (fork error)";
+//         } 
+//         else if (pid == 0) 
+//         {
+//             // ---------------------------------------------------------
+//             //  [子进程/囚犯]：戴上资源枷锁，准备接管 Python
+//             // ---------------------------------------------------------
             
-            // 枷锁 1：CPU 时间硬限制 (最多执行 2 秒，防死循环炸弹)
-            struct rlimit cpu_limit;
-            cpu_limit.rlim_cur = 2; // 软限制
-            cpu_limit.rlim_max = 2; // 硬限制
-            setrlimit(RLIMIT_CPU, &cpu_limit);
+//             // 枷锁 1：CPU 时间硬限制 (最多执行 2 秒，防死循环炸弹)
+//             struct rlimit cpu_limit;
+//             cpu_limit.rlim_cur = 2; // 软限制
+//             cpu_limit.rlim_max = 2; // 硬限制
+//             setrlimit(RLIMIT_CPU, &cpu_limit);
 
-            // 枷锁 2：虚拟内存硬限制 (最多分配 100MB，防爆内存 OOM)
-            struct rlimit mem_limit;
-            mem_limit.rlim_cur = 100 * 1024 * 1024; 
-            mem_limit.rlim_max = 100 * 1024 * 1024;
-            setrlimit(RLIMIT_AS, &mem_limit);
+//             // 枷锁 2：虚拟内存硬限制 (最多分配 100MB，防爆内存 OOM)
+//             struct rlimit mem_limit;
+//             mem_limit.rlim_cur = 100 * 1024 * 1024; 
+//             mem_limit.rlim_max = 100 * 1024 * 1024;
+//             setrlimit(RLIMIT_AS, &mem_limit);
 
-            // 狸猫换太子：把 Python 的标准输出和报错，强行重定向到 out_file 里
-            int fd = open(out_file.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            if (fd != -1) {
-                dup2(fd, STDOUT_FILENO); // 劫持标准输出
-                dup2(fd, STDERR_FILENO); // 劫持标准错误
-                close(fd);
-            }
+//             // 狸猫换太子：把 Python 的标准输出和报错，强行重定向到 out_file 里
+//             int fd = open(out_file.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//             if (fd != -1) {
+//                 dup2(fd, STDOUT_FILENO); // 劫持标准输出
+//                 dup2(fd, STDERR_FILENO); // 劫持标准错误
+//                 close(fd);
+//             }
 
-            // 夺舍：让 Python 解释器接管这个受限的进程壳子
-            execlp("python3", "python3", file_name.c_str(), nullptr);
+//             // 夺舍：让 Python 解释器接管这个受限的进程壳子
+//             execlp("python3", "python3", file_name.c_str(), nullptr);
             
-            // 如果 execlp 连 Python 环境都找不到，立刻自尽
-            exit(EXIT_FAILURE); 
-        } 
-        else 
-        {
-            // ---------------------------------------------------------
-            //  [父进程/典狱长]：安全监控与收尸
-            // ---------------------------------------------------------
-            int status;
-            waitpid(pid, &status, 0); // 阻塞等待囚犯执行完毕，或者被系统击毙
+//             // 如果 execlp 连 Python 环境都找不到，立刻自尽
+//             exit(EXIT_FAILURE); 
+//         } 
+//         else 
+//         {
+//             // ---------------------------------------------------------
+//             //  [父进程/典狱长]：安全监控与收尸
+//             // ---------------------------------------------------------
+//             int status;
+//             waitpid(pid, &status, 0); // 阻塞等待囚犯执行完毕，或者被系统击毙
 
-            if (WIFEXITED(status)) {
-                int exit_code = WEXITSTATUS(status);
-                if (exit_code != 0) {
-                    exec_result += "[沙盒提示] 脚本异常退出，退出码: " + std::to_string(exit_code) + "\n";
-                }
-            } 
-            else if (WIFSIGNALED(status)) 
-            {
-                // 核心高光：成功拦截到 Linux 内核发射的击毙信号！
-                int term_signal = WTERMSIG(status);
-                if (term_signal == SIGXCPU || term_signal == SIGKILL) {
-                    LOG_INFO("\033[1;31m[沙盒拦截] 成功防御大模型 CPU 死循环\033[0m");
-                    // 必须清理文件后直接 return 报错给大模型
-                    remove(file_name.c_str());
-                    remove(out_file.c_str());
-                    return "ERROR: 物理节点熔断！代码触碰 CPU 运行时间红线 (死循环)。";
-                } else if (term_signal == SIGSEGV) {
-                    LOG_INFO("\033[1;31m[沙盒拦截] 成功防御大模型内存溢出\033[0m");
-                    remove(file_name.c_str());
-                    remove(out_file.c_str());
-                    return "ERROR: 物理节点熔断！代码内存分配超限 (OOM)。";
-                } else {
-                    remove(file_name.c_str());
-                    remove(out_file.c_str());
-                    return "ERROR: 进程被系统异常信号终止: " + std::to_string(term_signal);
-                }
-            }
+//             if (WIFEXITED(status)) {
+//                 int exit_code = WEXITSTATUS(status);
+//                 if (exit_code != 0) {
+//                     exec_result += "[沙盒提示] 脚本异常退出，退出码: " + std::to_string(exit_code) + "\n";
+//                 }
+//             } 
+//             else if (WIFSIGNALED(status)) 
+//             {
+//                 // 核心高光：成功拦截到 Linux 内核发射的击毙信号！
+//                 int term_signal = WTERMSIG(status);
+//                 if (term_signal == SIGXCPU || term_signal == SIGKILL) {
+//                     LOG_INFO("\033[1;31m[沙盒拦截] 成功防御大模型 CPU 死循环\033[0m");
+//                     // 必须清理文件后直接 return 报错给大模型
+//                     remove(file_name.c_str());
+//                     remove(out_file.c_str());
+//                     return "ERROR: 物理节点熔断！代码触碰 CPU 运行时间红线 (死循环)。";
+//                 } else if (term_signal == SIGSEGV) {
+//                     LOG_INFO("\033[1;31m[沙盒拦截] 成功防御大模型内存溢出\033[0m");
+//                     remove(file_name.c_str());
+//                     remove(out_file.c_str());
+//                     return "ERROR: 物理节点熔断！代码内存分配超限 (OOM)。";
+//                 } else {
+//                     remove(file_name.c_str());
+//                     remove(out_file.c_str());
+//                     return "ERROR: 进程被系统异常信号终止: " + std::to_string(term_signal);
+//                 }
+//             }
 
-            // 提取战利品：从文件中读出 Python 的执行结果
-            std::ifstream ifs(out_file);
-            if (ifs.is_open()) {
-                std::stringstream buffer;
-                buffer<<ifs.rdbuf();
-                exec_result += buffer.str();
-            }
-            if (exec_result.empty()) exec_result = "执行成功，无控制台输出。";
+//             // 提取战利品：从文件中读出 Python 的执行结果
+//             std::ifstream ifs(out_file);
+//             if (ifs.is_open()) {
+//                 std::stringstream buffer;
+//                 buffer<<ifs.rdbuf();
+//                 exec_result += buffer.str();
+//             }
+//             if (exec_result.empty()) exec_result = "执行成功，无控制台输出。";
 
-            // 打扫战场：销毁证据
-            remove(file_name.c_str());
-            remove(out_file.c_str());
+//             // 打扫战场：销毁证据
+//             remove(file_name.c_str());
+//             remove(out_file.c_str());
             
-            return exec_result;
-        }
-    } catch (json::parse_error& e) {
-        return std::string("JSON Parse Error: ") + e.what();
+//             return exec_result;
+//         }
+//     } catch (json::parse_error& e) {
+//         return std::string("JSON Parse Error: ") + e.what();
+//     }
+// }
+
+
+// 这个函数就是挂载到 RPC 上的 ExecutePython 工具的具体实现
+std::string ExecutePythonWithSandbox(const std::string& python_code) {
+    // 1. 生成唯一的临时文件名 (防并发冲突)
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    std::string file_name = "/tmp/sandbox_" + std::to_string(tv.tv_sec) + "_" + std::to_string(tv.tv_usec) + ".py";
+
+    // 2. 将 AI 写的危险代码写入本地临时文件
+    std::ofstream out(file_name);
+    if (!out.is_open()) return "Error: 无法创建沙盒环境。";
+    out << python_code;
+    out.close();
+
+    // 🌟 3. 构造工业级 Docker 沙盒命令
+    // --rm: 运行完立马销毁容器，不留垃圾
+    // --network none: 绝对断网，防反弹 Shell
+    // -m 64m: 最多吃 64MB 内存，防 OOM 炸弹
+    // --cpus 0.5: 最多用半个 CPU 核心
+    // -v ...: 把刚才写的脚本只读挂载进容器内部
+    // timeout 5s: 最多只允许跑 5 秒，防死循环挂起
+    std::string cmd = "docker run --rm --network none -m 64m --cpus 0.5 "
+                      "-v " + file_name + ":/app/run.py:ro "
+                      "python:3.9-alpine "
+                      "timeout 5s python /app/run.py 2>&1";
+
+    // 4. 执行命令并捕获输出 (管道技术)
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    
+    if (!pipe) {
+        remove(file_name.c_str());
+        throw std::runtime_error("popen() failed!");
     }
+    
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+
+    // 5. 销毁案发现场 (删除临时文件)
+    remove(file_name.c_str());
+
+    // 6. 处理返回结果
+    if (result.empty()) {
+        return "执行成功，无控制台输出。";
+    }
+    return result;
 }
+
 
 
 // =========================================================================
@@ -212,7 +270,7 @@ int main(int argc, char** argv) {
         "ExecutePython",
         "用于在本地物理机沙盒中执行 Python 3 代码。当用户需要进行复杂的数学计算、算法推演时，必须调用此工具。",
         R"({"type":"object","properties":{"code":{"type":"string","description":"要执行的真实 Python 脚本代码"}}})",
-        std::bind(&DoExecutePython, std::placeholders::_1)
+        std::bind(&ExecutePythonWithSandbox, std::placeholders::_1)
     );
 
     // 3. 将 MCP 服务发布到 Zookeeper

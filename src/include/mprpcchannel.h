@@ -40,4 +40,12 @@ private:
     static std::unordered_map<std::string, AsyncRpcContext> pending_map_;
     static std::mutex map_mutex_;
     static std::atomic<uint64_t> uuid_gen_;
+
+    // ==========================================
+    // [新增]清道夫线程相关声明
+    // ==========================================
+    static std::thread scavenger_thread_;
+    static bool is_scavenger_started_;
+    static std::mutex init_mutex_;
+    static void ScavengerTask(); // 定时巡逻任务
 };

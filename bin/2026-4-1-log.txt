@@ -139,3 +139,119 @@
 14:7:55=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
 14:8:3=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
 14:6:44=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user ORDER BY id;"}
+21:29:35=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+14:8:6=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+14:7:59=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+14:8:8=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:29:42=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:29:45=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:29:51=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:29:38=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:29:48=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:30:11=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_1' LIMIT 10;"}
+21:30:8=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
+21:29:54=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:30:22=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:30:18=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:30:15=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:30:39=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 2 LIMIT 10;"}
+21:29:35=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:30:35=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:30:43=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:30:25=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:30:55=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:30:58=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:31:3=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:30:52=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:31:0=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:31:28=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_4' LIMIT 10;"}
+21:31:23=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
+21:31:6=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user4' LIMIT 10;"}
+21:31:35=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:31:32=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:31:52=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:31:39=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:31:58=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:32:1=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:30:48=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:31:49=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:31:56=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:32:4=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:32:19=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:32:22=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:32:27=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:32:16=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:32:25=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:32:30=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:32:54=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:32:51=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:32:57=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:32:47=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:33:0=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:33:16=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 8 LIMIT 10;"}
+21:32:12=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:33:23=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:33:19=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:33:38=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_10' LIMIT 10;"}
+21:33:34=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
+21:33:2=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user10' LIMIT 10;"}
+21:33:51=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:33:46=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:33:42=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:34:6=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 11 LIMIT 10;"}
+21:34:2=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 10;"}
+21:33:27=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:34:13=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:34:9=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:34:28=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_13' LIMIT 10;"}
+21:33:54=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:34:38=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:34:41=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC offlinemessage;"}
+21:34:35=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:34:31=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:34:44=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 14 LIMIT 10;"}
+21:34:52=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 10;"}
+21:34:56=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE id > 10 ORDER BY id LIMIT 10;"}
+21:35:3=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+21:34:20=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:35:9=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:35:6=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:34:59=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_16' LIMIT 10;"}
+21:35:29=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE name LIKE '%user%' OR name LIKE '%16%' LIMIT 10;"}
+21:35:25=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE name LIKE '%user_%' LIMIT 10;"}
+21:35:22=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+21:35:39=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:35:36=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:35:48=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 17 LIMIT 10;"}
+21:35:55=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 10;"}
+21:35:52=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE id > 10 ORDER BY id LIMIT 10;"}
+21:35:58=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE name LIKE '%17%' OR name LIKE '%user17%' LIMIT 10;"}
+21:35:13=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:36:8=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:36:2=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:36:26=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_19' LIMIT 10;"}
+21:35:33=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:36:33=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC groupuser;"}
+21:36:30=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC allgroup;"}
+21:36:22=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:36:40=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:36:47=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE id = 20 LIMIT 10;"}
+21:36:54=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 10;"}
+21:36:51=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE id > 10 ORDER BY id LIMIT 10;"}
+21:36:36=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC friend;"}
+21:36:14=>[error]Embedding API 调用失败！状态码: 400, 原因: {"code":20015,"message":"The parameter is invalid. Please check again.","data":null}
+21:36:58=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:37:1=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user LIMIT 10;"}
+21:37:16=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM friend LIMIT 10;"}
+21:37:7=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM allgroup LIMIT 10;"}
+21:37:26=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM groupuser LIMIT 10;"}
+21:37:29=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM offlinemessage LIMIT 10;"}
+21:37:23=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:37:20=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:37:51=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT * FROM user WHERE name = 'user_22' LIMIT 10;"}
+21:37:33=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE name LIKE '%user%' OR name LIKE '%22%' LIMIT 10;"}
+21:37:55=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT id, name, state FROM user WHERE name LIKE '%user%' LIMIT 20;"}
+21:37:59=>[info]>>> [物理节点] RPC 调用: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+21:38:11=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}
+21:38:8=>[info]>>> [物理节点] RPC 调用: {"sql": "DESC user;"}
+21:38:19=>[info]>>> [物理节点] RPC 调用: {"sql": "SHOW TABLES;"}

@@ -1,1 +1,8 @@
 build/
+bin/agent_gateway
+bin/agent_provider
+bin/chat_client
+bin/*.bin
+bin/*.log
+*.o
+.vscode/

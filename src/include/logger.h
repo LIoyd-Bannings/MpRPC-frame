@@ -1,6 +1,7 @@
 #pragma once
-#include"lockqueue.h"
+// #include"lockqueue.h"
 #include<string>
+#include "spsc_queue.hpp"
 // ==========================================
 // 🌈 ANSI 颜色转义码 (工业级标准)
 // ==========================================
@@ -39,7 +40,8 @@ public:
 
 private:
     int m_loglevel;//记录日志级别
-    LockQueue<std::string> m_lckQue;//日志缓冲队列
+    // LockQueue<std::string> m_lckQue;//日志缓冲队列
+    SPSCQueue<std::string> m_lckQue;
     Logger();
     Logger(const Logger&)=delete;
     Logger(Logger&&)=delete;
