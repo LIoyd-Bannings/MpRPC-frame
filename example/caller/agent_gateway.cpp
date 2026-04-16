@@ -26,6 +26,17 @@
 //#include "lru_cache.hpp"
 #include "sharded_lru.hpp"
 using json = nlohmann::json;
+#include <atomic>
+
+
+extern std::atomic<uint64_t> metric_total_requests;
+extern std::atomic<uint64_t> metric_model_fallback_total;
+extern  std::atomic<uint64_t> metric_rag_hit_total;
+extern std::atomic<uint64_t> metric_last_llm_latency_ms;
+extern std::atomic<uint64_t> metric_rpc_pending_count;
+extern std::atomic<uint64_t> metric_thread_pool_queue_size;
+
+
 
 // 1. 实例化全局的 ZeroMQ 引擎核心
 zmq::context_t g_zmq_context(1);
@@ -90,6 +101,47 @@ std::mutex zmq_send_mutex;
 int main(int argc, char **argv)
 {
     MprpcApplication::Init(argc, argv);
+
+    // Prometheus 指标导出线程
+    std::thread metrics_svr_thread([](){
+        httplib::Server svr;
+        svr.Get("/metrics", [](const httplib::Request&, httplib::Response& res) {
+            std::stringstream ss;
+
+            // 1. RPC 积压
+            ss << "# HELP gateway_rpc_pending 当前正在等待回信的请求数\n";
+            ss << "gateway_rpc_pending " << metric_rpc_pending_count.load() << "\n";
+            
+            // 2. 线程池队列
+            ss << "# HELP gateway_thread_queue 线程池中排队的任务数\n";
+            ss << "gateway_thread_queue " << metric_thread_pool_queue_size.load() << "\n";
+            
+            // 3. 总请求数
+            ss << "# HELP gateway_requests_total 网关收到的总请求数\n";
+            ss << "gateway_requests_total " << metric_total_requests.load() << "\n";
+
+            // 🌟 [新增] 4. 大模型最后一次延迟 (Gauge类型)
+            ss << "# HELP gateway_llm_latency_ms 大模型最近一次推理的耗时(ms)\n";
+            ss << "# TYPE gateway_llm_latency_ms gauge\n";
+            ss << "gateway_llm_latency_ms " << metric_last_llm_latency_ms.load() << "\n";
+
+            // 🌟 [新增] 5. 熔断降级总次数 (Counter类型)
+            ss << "# HELP gateway_model_fallback_total 触发模型降级的总次数\n";
+            ss << "# TYPE gateway_model_fallback_total counter\n";
+            ss << "gateway_model_fallback_total " << metric_model_fallback_total.load() << "\n";
+
+            // 🌟 [新增] 6. RAG 知识库命中次数 (Counter类型)
+            ss << "# HELP gateway_rag_hit_total RAG知识库高置信度命中的总次数\n";
+            ss << "# TYPE gateway_rag_hit_total counter\n";
+            ss << "gateway_rag_hit_total " << metric_rag_hit_total.load() << "\n";
+            
+            res.set_content(ss.str(), "text/plain");
+        });
+        svr.listen("0.0.0.0", 8081);
+    });
+    metrics_svr_thread.detach();
+
+
     ThreadPool pool(16);
     auto channel = std::make_shared<MprpcChannel>(&pool);
 
@@ -242,16 +294,25 @@ int main(int argc, char **argv)
 
 
     // 保存你的原始 API Keys，传给线程池使用
-    std::string ds_key = "sk-xxx";
-    std::string kimi_key = "sk-xxx";
+    //std::string ds_key = "sk-xxx";
+    //std::string kimi_key = "sk-xxx";
+
+    MprpcConfig& config = MprpcApplication::GetInstance().GetConfig();
+    std::string ds_key = config.Load("deepseek_key");
+    std::string kimi_key = config.Load("kimi_key");
+
+    // 增加安全检查
+    if (ds_key == " " || kimi_key == " ") {
+    LOG_SYS(ANSI_RED "警告：未在配置文件中检测到 API Key，网关可能无法工作！" ANSI_RES);
+    }
 
     // ==========================================
     //  3. ZeroMQ 网络监听
     // ==========================================
     zmq::context_t context(1);
     zmq::socket_t server(context, zmq::socket_type::router);
-    server.bind("tcp://*:5555");
-    LOG_SYS("ZeroMQ 异步网关已就绪，正在监听 5555 端口...");
+    server.bind("tcp://*:5556");
+    LOG_SYS("ZeroMQ 异步网关已就绪，正在监听 5556 端口...");
     // 1. 在网关启动前，初始化长连接客户端
     auto cli = std::make_shared<httplib::Client>("https://api.deepseek.com");
     auto backup_cli = std::make_shared<httplib::Client>("https://api.moonshot.cn");
@@ -277,6 +338,9 @@ int main(int argc, char **argv)
         std::string user_input = request.to_string();
         std::string client_id = identity.to_string();
         LOG_GW("监听到新请求 [ID: %s]，立即抛入线程池异步处理...", client_id.c_str());
+
+        // [埋点 1]：总请求数 + 1
+        metric_total_requests.fetch_add(1, std::memory_order_relaxed);
 
         // =====================================================================
         // 4. 线程池并发任务 (完美还原双 API 容灾和 Reviewer 机制)
@@ -414,6 +478,9 @@ int main(int argc, char **argv)
             // 🌟 构建带有 RAG 背景知识的 Prompt
             std::string final_prompt; 
             if (has_high_confidence_knowledge) {
+                // [埋点 2]：RAG 高分命中数 + 1
+                metric_rag_hit_total.fetch_add(1, std::memory_order_relaxed);
+
                 LOG_GW(ANSI_GRE "检测到高置信度知识 (Score > 0.55)，强行锁定 RAG 模式。" ANSI_RES);
                 final_prompt = "【已知事实（最高优先级）】：\n" + strong_context + 
                                "\n【用户问题】：\n" + user_input +
@@ -480,12 +547,22 @@ int main(int argc, char **argv)
 
                 LOG_GW("正在请求 DeepSeek 思考第 %d 步动作...", tool_call_count + 1);
                 httplib::Result res;
+                // 🌟 [埋点 4 前置]：记录呼叫大模型前的起始时间
+                auto llm_start_time = std::chrono::steady_clock::now();
                 {
                 std::lock_guard<std::mutex> lock(http_mtx);    
                 res = cli->Post("/chat/completions", headers, request_body.dump(), "application/json");
                 }
+                // [埋点 4 后置]：计算耗时并更新 Gauge 指标
+                auto llm_end_time = std::chrono::steady_clock::now();
+                auto latency_ms = std::chrono::duration_cast<std::chrono::milliseconds>(llm_end_time - llm_start_time).count();
+                metric_last_llm_latency_ms.store(latency_ms, std::memory_order_relaxed);
+
+
                 // 🛡️ [熔断降级 Fallback 逻辑]
                 if (!res || res->status != 200) {
+                    //  [埋点 3]：触发熔断降级数 + 1
+                    metric_model_fallback_total.fetch_add(1, std::memory_order_relaxed);
                     LOG_GW(ANSI_RED "触发熔断，切换至 Kimi..." ANSI_RES);
                     json clean_messages = json::array();
                     clean_messages.push_back({{"role", "system"}, {"content", system_prompt}});

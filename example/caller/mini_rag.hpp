@@ -34,9 +34,10 @@ std::vector<float> GetEmbedding(const std::string& text) {
         cli.set_read_timeout(10, 0); 
         is_init = true;
     }
+    std::string sf_key = MprpcApplication::GetInstance().GetConfig().Load("siliconflow_key");
 
     httplib::Headers headers = {
-        {"Authorization", "Bearer sk-myjtuvwvluhegiyobsrdfhoekzrmstkatnrfxsvvnwfnguki"},
+        {"Authorization", "Bearer " + sf_key},
         {"Content-Type", "application/json"}
     };
     
@@ -66,9 +67,9 @@ std::vector<float> GetRerankScores(const std::string& query, const std::vector<s
         cli.set_read_timeout(10, 0);
         is_init = true;
     }
-
+    std::string sf_key = MprpcApplication::GetInstance().GetConfig().Load("siliconflow_key");
     httplib::Headers headers = {
-        {"Authorization", "Bearer sk-myjtuvwvluhegiyobsrdfhoekzrmstkatnrfxsvvnwfnguki"},
+        {"Authorization", "Bearer " + sf_key},
         {"Content-Type", "application/json"}
     };
 

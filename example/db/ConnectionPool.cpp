@@ -10,12 +10,16 @@ ConnectionPool* ConnectionPool::getInstance() {
 
 // 构造函数
 ConnectionPool::ConnectionPool() {
-    // 1. 加载配置 (这里可以从你的 mprpcconfig 里读)
-    _ip = "127.0.0.1";
-    _port = 3306;
-    _user = "root";
-    _password = "123456";
-    _dbname = "chat";
+    // 1. 通过 MprpcApplication 动态拉取配置
+    MprpcConfig& config = MprpcApplication::GetInstance().GetConfig();
+    
+    // 带有默认值的健壮性读取
+    _ip = config.Load("db_ip").empty() ? "127.0.0.1" : config.Load("db_ip");
+    _port = config.Load("db_port").empty() ? 3306 : std::stoi(config.Load("db_port"));
+    _user = config.Load("db_user").empty() ? "root" : config.Load("db_user");
+    _password = config.Load("db_password");
+    _dbname = config.Load("db_name").empty() ? "chat" : config.Load("db_name");
+
     _initSize = 5;
     _maxSize = 15;
     _maxIdleTime = 60;

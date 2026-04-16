@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     zmq::socket_t socket(context, zmq::socket_type::req); // REQ 模式：发一个请求，等一个回复
     
     std::cout << ANSI_CYA "正在连接到 Lele 的分布式 AI 网关..." ANSI_RES << std::endl;
-    socket.connect("tcp://127.0.0.1:5555");
+    socket.connect("tcp://127.0.0.1:5556");
     
     std::string client_name = (argc > 1) ? argv[1] : "智能林弟";
     std::cout << ANSI_GRE "连接成功！欢迎，" << client_name << "。你可以开始提问了 (输入 exit 退出)。" ANSI_RES << "\n";

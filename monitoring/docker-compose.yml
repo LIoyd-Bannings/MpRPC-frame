@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  mprpc-prometheus: # 1. 这里的服务名改一下
+    image: prom/prometheus:latest
+    container_name: mprpc-prometheus # 2. 容器名改为唯一
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9091:9090" # 3. 映射到宿主机的 9091 端口（避开旧项目的 9090）
+
+  mprpc-grafana: # 4. 服务名改一下
+    image: grafana/grafana:latest
+    container_name: mprpc-grafana # 5. 容器名改为唯一
+    restart: unless-stopped
+    ports:
+      - "3001:3000" # 6. 映射到宿主机的 3001 端口（避开旧项目的 3000）
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin 
+    depends_on:
+      - mprpc-prometheus

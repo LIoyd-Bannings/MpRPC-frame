@@ -8,7 +8,8 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
-
+#include <memory>         //  新增：用于 unique_ptr
+#include "threadpool.h"   // 新增：引入线程池
 // 极其高级的 C++ 动态回调类型定义：
 // 任何满足 "传入 string，返回 string" 的函数，都可以作为大模型的底层工具！
 using ToolCallback = std::function<std::string(const std::string&)>;
@@ -21,7 +22,19 @@ private:
     // 动态映射表：工具名字 -> 具体的 C++ 执行函数（给本机执行用的）
     std::unordered_map<std::string, ToolCallback> tool_handlers_;
 
+
+    // 新增：定义舱壁隔离的两个独立线程池
+    std::unique_ptr<ThreadPool> fast_pool_;
+    std::unique_ptr<ThreadPool> io_pool_;
+
 public:
+
+    McpServiceImpl() {
+        fast_pool_ = std::make_unique<ThreadPool>(12); // 主战舱：处理查 DB 等极速任务
+        io_pool_ = std::make_unique<ThreadPool>(4);    // 隔离舱：处理 Python 等高危慢速任务
+        std::cout << "[SYSTEM] 舱壁隔离模式启动: FastPool(12线程), IOPool(4线程)\n";
+    }
+
     // ==============================================================
     // 🌟 核心大招：对外暴露的动态注册接口 (供 agentserver 的 main 函数调用)
     // ==============================================================
@@ -60,25 +73,41 @@ public:
     void CallTool(::google::protobuf::RpcController* controller,
                   const ::mcp::CallToolRequest* request,
                   ::mcp::CallToolResponse* response,
-                  ::google::protobuf::Closure* done) override 
+                  ::google::protobuf::Closure* done) override
     {
         std::string tool_name = request->name();
         std::string args = request->arguments();
 
         // 去哈希表里找，业务层注册过这个工具吗？
         auto it = tool_handlers_.find(tool_name);
+        
         if (it != tool_handlers_.end()) {
-            //  找到了！调用业务层的代码（比如 DoSearchDataBase）
-            std::string result = it->second(args); 
-            
-            response->set_is_error(false);
-            response->set_content(result);
+            // 拿到真实的 C++ 函数闭包 (比如 DoSearchDataBase)
+            auto handler = it->second;
+
+            //  核心架构：舱壁隔离路由
+            if (tool_name == "ExecutePython") {
+                // [高危操作] 打入 4 线程的 IO 隔离舱
+                io_pool_->addTask([handler, args, response, done]() {
+                    std::string result = handler(args);
+                    response->set_is_error(false);
+                    response->set_content(result);
+                    done->Run(); //  只有在子线程算完后，才通知底层的 ZMQ 发送回包！
+                });
+            } else {
+                // [安全操作] 打入 12 线程的主战舱
+                fast_pool_->addTask([handler, args, response, done]() {
+                    std::string result = handler(args);
+                    response->set_is_error(false);
+                    response->set_content(result);
+                    done->Run(); // 🌟 算完再发送
+                });
+            }
         } else {
-            // 没找到？说明大模型幻觉了，或者网关派发错了
+            // 没找到？大模型幻觉了
             response->set_is_error(true);
             response->set_content("致命错误：本节点未注册工具 [" + tool_name + "]");
+            done->Run(); // 这种直接报错的，当前线程立刻回传
         }
-
-        done->Run();
     }
 };

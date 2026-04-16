@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 2s # 每 2 秒拉取一次数据，监控更实时
+
+scrape_configs:
+  - job_name: 'ai_gateway_monitor'
+    static_configs:
+      # ⚠️ 关键点：由于 Prometheus 跑在容器里，
+      # 它通过 172.17.0.1（Docker 网桥默认宿主机 IP）访问你正在运行的网关
+      - targets: ['172.25.36.225:8081']

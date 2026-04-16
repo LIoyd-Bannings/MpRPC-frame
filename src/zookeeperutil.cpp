@@ -14,7 +14,12 @@ void global_watcher(zhandle_t *zh,int type,int state,const char* path,void *watc
         if(state == ZOO_CONNECTED_STATE) // 3
         {
             sem_t *sem = (sem_t*)zoo_get_context(zh);
-            sem_post(sem);
+            // 🌟 关键修改：检查 sem 是否为有效指针
+            // 如果我们在 Start 函数结束前将其设为了 nullptr，这里就不会再触发非法的 sem_post
+            if (sem != nullptr) 
+            {
+                sem_post(sem);
+            }
         }
     }
 }
@@ -59,6 +64,7 @@ void ZkClient::Start()
     zoo_set_context(m_zhandle,&sem);
 
     sem_wait(&sem);
+    zoo_set_context(m_zhandle, nullptr);
     std::cout<<"zookeeper _init success!"<<std::endl;
 }
 

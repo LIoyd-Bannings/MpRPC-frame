@@ -6,6 +6,8 @@
 #include<functional>
 #include<condition_variable>
 #include <future>
+#include <atomic>
+extern std::atomic<uint64_t> metric_thread_pool_queue_size; //  引用全局变量
 class ThreadPool
 {
 public:
@@ -28,6 +30,7 @@ public:
                         }
                         task=std::move(tasks.front());
                         this->tasks.pop();
+                        metric_thread_pool_queue_size.fetch_sub(1, std::memory_order_relaxed); // 被工人领走了，队列变短
                         task();
                     }
                 }
@@ -64,6 +67,7 @@ void addTask(F&& f,Args&&...args)
         //不允许停业后接单
         if(stop)throw std::runtime_error("enqueue on stopped ThreadPool");
         tasks.emplace(wrapper_func);//扔进篮子
+        metric_thread_pool_queue_size.fetch_add(1, std::memory_order_relaxed); //  队列变长
     }
     //通知 唤醒一个线程干活
     condition.notify_one();

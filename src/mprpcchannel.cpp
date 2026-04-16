@@ -12,6 +12,8 @@
 #include "zookeeperutil.h"
 #include <memory>
 #include <zmq.hpp>
+#include <atomic>
+extern std::atomic<uint64_t> metric_rpc_pending_count; //  引用全局变量
 /*
 
 header_size  +   service name method_name args_size   +  args
@@ -223,6 +225,7 @@ void MprpcChannel ::CallMethod(const google::protobuf::MethodDescriptor *method,
         std::lock_guard<std::mutex> lock(map_mutex_);
         pending_map_[req_id] = {response, done, std::chrono::steady_clock::now()};
     }
+    metric_rpc_pending_count.fetch_add(1, std::memory_order_relaxed); //  发射一个请求，计数+1
 
     // 3. 拿出 ZeroMQ 的重武器：获取或创建对应物理节点的 DEALER
     std::shared_ptr<zmq::socket_t> dealer;
@@ -560,7 +563,9 @@ void MprpcChannel::HandleRpcResponse(const std::string &id, const std::string &d
         {
             ctx = it->second;
             pending_map_.erase(it); // 拿到魂魄，当场销毁案底！
+            metric_rpc_pending_count.fetch_sub(1, std::memory_order_relaxed); // 🌟 任务完成，计数-1
         }
+        
         else
         {
             std::cout << " [异步网关] 收到未知或已超时的响应 ID: " << id << "，直接丢弃。\n";
@@ -620,6 +625,7 @@ void MprpcChannel::ScavengerTask() {
                 
                 // 狠心踢出 map，释放宝贵的内存！
                 it = pending_map_.erase(it); 
+                metric_rpc_pending_count.fetch_sub(1, std::memory_order_relaxed); //  超时回收，计数-1
             } else {
                 ++it; // 没超时的，跳过看下一个
             }

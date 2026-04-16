@@ -1,8 +1,20 @@
-build/
-bin/agent_gateway
-bin/agent_provider
-bin/chat_client
-bin/*.bin
-bin/*.log
+# 忽略二进制文件和库
+bin/
+lib/
+*.a
 *.o
+
+# 忽略日志文件
+*.log
+*-log.txt
+
+#  极其重要：忽略包含敏感 API Key 的配置文件
+bin/*.conf
+bin/*.bin
+bin/*.json
+
+# 忽略临时文件夹和 IDE 配置
 .vscode/
+.idea/
+build/
+/tmp/
