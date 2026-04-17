@@ -1,0 +1,6 @@
+20:45:44=>[info]service_name:McpToolService
+20:45:44=>[info]method_name:ListTools
+20:45:44=>[info]method_name:CallTool
+20:45:44=>[info]service_name:McpToolService
+20:45:44=>[info]method_name:ListTools
+20:45:44=>[info]method_name:CallTool

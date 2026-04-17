@@ -1,0 +1,115 @@
+9:16:43=>[info]service_name:AgentServiceRpc
+9:16:43=>[info]method_name:Execute
+9:22:29=>[error]first log message!
+9:26:47=>[info]service_name:AgentServiceRpc
+9:26:47=>[info]method_name:Execute
+9:26:47=>[info]service_name:AgentServiceRpc
+9:26:47=>[info]method_name:Execute
+9:26:47=>[info]service_name:AgentServiceRpc
+9:26:47=>[info]method_name:Execute
+9:26:47=>[info][TraceID: trace-1774488425] 收到大模型工具调用指令, 目标工具: SearchDataBase
+9:27:5=>[info][TraceID: trace-1774488425] 正在执行大模型派发的 SQL: SHOW TABLES;
+9:26:47=>[info][TraceID: trace-1774488428] 收到大模型工具调用指令, 目标工具: SearchDataBase
+9:27:8=>[info][TraceID: trace-1774488428] 正在执行大模型派发的 SQL: DESC user;
+9:27:8=>[info][TraceID: trace-1774488431] 收到大模型工具调用指令, 目标工具: SearchDataBase
+9:27:11=>[info][TraceID: trace-1774488431] 正在执行大模型派发的 SQL: SELECT id, name, state FROM user;
+10:8:30=>[info]service_name:AgentServiceRpc
+10:8:30=>[info]service_name:AgentServiceRpc
+10:10:36=>[info]service_name:AgentServiceRpc
+10:10:36=>[info]method_name:Execute
+10:10:36=>[info]service_name:AgentServiceRpc
+10:10:36=>[info]method_name:Execute
+10:10:36=>[info]service_name:AgentServiceRpc
+10:10:36=>[info]method_name:Execute
+10:22:48=>[info]service_name:AgentServiceRpc
+10:22:48=>[info]method_name:Execute
+10:22:48=>[info]service_name:AgentServiceRpc
+10:22:48=>[info]method_name:Execute
+10:22:48=>[info]service_name:AgentServiceRpc
+10:22:48=>[info]method_name:Execute
+10:22:48=>[info][TraceID: trace-1774491793] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:13=>[info][TraceID: trace-1774491793] 正在执行大模型派发的 SQL: SHOW TABLES;
+10:22:48=>[info][TraceID: trace-1774491796] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:16=>[info][TraceID: trace-1774491796] 正在执行大模型派发的 SQL: DESC user;
+10:23:16=>[info][TraceID: trace-1774491799] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:19=>[info][TraceID: trace-1774491799] 正在执行大模型派发的 SQL: SELECT COUNT(*) as user_count FROM user;
+10:23:19=>[info][TraceID: trace-1774491814] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:34=>[info][TraceID: trace-1774491814] 正在执行大模型派发的 SQL: SHOW TABLES;
+10:23:13=>[info][TraceID: trace-1774491817] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:37=>[info][TraceID: trace-1774491817] 正在执行大模型派发的 SQL: DESC user;
+10:23:37=>[info][TraceID: trace-1774491821] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:41=>[info][TraceID: trace-1774491821] 正在执行大模型派发的 SQL: SELECT COUNT(*) as total_users FROM user;
+10:23:34=>[info][TraceID: trace-1774491824] 收到大模型工具调用指令, 目标工具: SearchDataBase
+10:23:44=>[info][TraceID: trace-1774491824] 正在执行大模型派发的 SQL: SELECT name FROM user ORDER BY name;
+15:17:10=>[info]service_name:McpToolService
+15:17:10=>[info]method_name:ListTools
+15:17:10=>[info]method_name:CallTool
+15:32:34=>[info]service_name:McpToolService
+15:32:34=>[info]method_name:ListTools
+15:32:34=>[info]method_name:CallTool
+15:32:34=>[info]service_name:McpToolService
+15:32:34=>[info]method_name:ListTools
+15:32:34=>[info]method_name:CallTool
+15:32:34=>[info]service_name:McpToolService
+15:32:34=>[info]method_name:ListTools
+15:32:34=>[info]method_name:CallTool
+15:53:56=>[info]service_name:McpToolService
+15:53:56=>[info]method_name:ListTools
+15:53:56=>[info]method_name:CallTool
+15:53:56=>[info]service_name:McpToolService
+15:53:56=>[info]method_name:ListTools
+15:53:56=>[info]method_name:CallTool
+15:53:56=>[info]service_name:McpToolService
+15:53:56=>[info]method_name:ListTools
+15:53:56=>[info]method_name:CallTool
+15:53:56=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+15:53:56=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:11:33=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+16:11:41=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+16:11:37=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:16:41=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT COUNT(*) as 用户总数 FROM user;"}
+16:16:45=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT name as 用户名 FROM user ORDER BY name;"}
+16:28:20=>[info]service_name:McpToolService
+16:28:20=>[info]method_name:ListTools
+16:28:20=>[info]method_name:CallTool
+16:28:20=>[info]service_name:McpToolService
+16:28:20=>[info]method_name:ListTools
+16:28:20=>[info]method_name:CallTool
+16:28:20=>[info]service_name:McpToolService
+16:28:20=>[info]method_name:ListTools
+16:28:20=>[info]method_name:CallTool
+16:28:20=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+16:28:20=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:28:45=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
+16:28:54=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+16:28:20=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name, state FROM user ORDER BY id LIMIT 26;"}
+16:28:58=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+16:29:2=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC friend;"}
+16:29:38=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT * FROM friend LIMIT 10;"}
+16:28:49=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:29:42=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name FROM user LIMIT 20;"}
+16:29:49=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT \n    u1.name as user_name,\n    u2.name as friend_name\nFROM friend f\nJOIN user u1 ON f.userid = u1.id\nJOIN user u2 ON f.friendid = u2.id\nORDER BY u1.name, u2.name;"}
+16:29:46=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name FROM user WHERE id IN (13, 15, 16, 21, 25);"}
+16:30:3=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT \n    u1.name as user_name,\n    u2.name as friend_name\nFROM friend f\nLEFT JOIN user u1 ON f.userid = u1.id\nLEFT JOIN user u2 ON f.friendid = u2.id\nWHERE u1.name IS NOT NULL AND u2.name IS NOT NULL\nORDER BY u1.name, u2.name;"}
+16:29:59=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT * FROM friend ORDER BY userid, friendid;"}
+16:29:53=>[info]开始执行工具: ExecutePython, 参数: {"code": "# 分析朋友关系数据\nfriend_data = [\n    {\"userid\": 13, \"friendid\": 15},\n    {\"userid\": 13, \"friendid\": 21},\n    {\"userid\": 16, \"friendid\": 25},\n    {\"userid\": 21, \"friendid\": 13},\n    {\"userid\": 21, \"friendid\": 15}\n]\n\n# 用户ID到姓名的映射\nuser_mapping = {\n    13: \"zhang san\",\n    15: \"li si\",\n    16: \"liu shuo\",\n    21: \"gao yang\",\n    25: \"未知用户\"  # 这个ID在user表中没有找到\n}\n\nprint(\"=== 朋友关系分析 ===\")\nprint()\n\n# 显示每个用户的朋友\nfriends_by_user = {}\nfor rel in friend_data:\n    user_id = rel[\"userid\"]\n    friend_id = rel[\"friendid\"]\n    \n    user_name = user_mapping.get(user_id, f\"用户{user_id}\")\n    friend_name = user_mapping.get(friend_id, f\"用户{friend_id}\")\n    \n    if user_name not in friends_by_user:\n        friends_by_user[user_name] = []\n    friends_by_user[user_name].append(friend_name)\n\nprint(\"每个用户的朋友�
+16:30:9=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+16:30:13=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:34:37=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name, state FROM user LIMIT 10;"}
+16:34:45=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT COUNT(*) as total_users FROM user;"}
+16:30:37=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT id, name, state FROM user ORDER BY id;"}
+16:34:50=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SHOW TABLES;"}
+16:34:53=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC friend;"}
+16:35:33=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT * FROM friend LIMIT 10;"}
+16:34:41=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "DESC user;"}
+16:35:37=>[info]开始执行工具: SearchDataBase, 参数: {"sql": "SELECT \n    u1.name as user_name,\n    u2.name as friend_name\nFROM friend f\nJOIN user u1 ON f.userid = u1.id\nJOIN user u2 ON f.friendid = u2.id\nORDER BY u1.name, u2.name\nLIMIT 10;"}
+16:35:41=>[info]开始执行工具: ExecutePython, 参数: {"code": "import numpy as np\nimport matplotlib.pyplot as plt\n\n# 创建心形曲线的参数方程\nt = np.linspace(0, 2*np.pi, 1000)\n\n# 心形曲线的参数方程\nx = 16 * np.sin(t)**3\ny = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)\n\n# 创建图形\nplt.figure(figsize=(8, 8))\nplt.plot(x, y, color='red', linewidth=3)\nplt.fill(x, y, color='pink', alpha=0.6)\n\n# 设置图形属性\nplt.title('Heart Shape', fontsize=16, fontweight='bold')\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.grid(True, alpha=0.3)\nplt.axis('equal')\nplt.axhline(y=0, color='black', linewidth=0.5)\nplt.axvline(x=0, color='black', linewidth=0.5)\n\n# 显示图形\nplt.show()\n\n# 打印心形曲线的点\nprint(\"心形曲线的前10个点坐标:\")\nfor i in range(10):\n    print(f\"点 {i+1}: x={x[i]:.2f}, y={y[i]:.2f}\")"}
+16:35:44=>[info]开始执行工具: ExecutePython, 参数: {"code": "import numpy as np\nimport matplotlib.pyplot as plt\n\n# 创建心形参数方程\nt = np.linspace(0, 2*np.pi, 1000)\nx = 16 * np.sin(t)**3\ny = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)\n\n# 设置图形\nplt.figure(figsize=(8, 8))\nplt.plot(x, y, color='red', linewidth=3)\nplt.fill(x, y, color='red', alpha=0.6)\n\n# 设置图形属性\nplt.title('Heart Shape', fontsize=16, fontweight='bold')\nplt.axis('equal')\nplt.axis('off')\nplt.grid(False)\n\n# 显示图形\nplt.tight_layout()\nplt.show()\n\n# 保存图像\nplt.savefig('heart_shape.png', dpi=100, bbox_inches='tight')\nprint(\"心形图像已生成并保存为 'heart_shape.png'\")"}
+16:36:54=>[info]开始执行工具: ExecutePython, 参数: {"code": "import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建心形图的参数方程\nt = np.linspace(0, 2 * np.pi, 1000)\n\n# 心形线的参数方程\nx = 16 * np.sin(t) ** 3\ny = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)\n\n# 创建图形\nplt.figure(figsize=(8, 8))\nplt.plot(x, y, color='red', linewidth=3)\nplt.fill(x, y, color='pink', alpha=0.7)\n\n# 设置图形属性\nplt.title('Heart Shape', fontsize=16, fontweight='bold')\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.grid(True, alpha=0.3)\nplt.axis('equal')\n\n# 保存图形\nplt.savefig('heart_shape.png', dpi=100, bbox_inches='tight')\nprint(\"心形图已保存为 'heart_shape.png'\")\nprint(f\"图形尺寸: {len(x)} 个点\")\nprint(f\"X范围: [{min(x):.2f}, {max(x):.2f}]\")\nprint(f\"Y范围: [{min(y):.2f}, {max(y):.2f}]\")"}
+16:39:37=>[info]开始执行工具: SearchDataBase, 参数: {
+    "sql": "SHOW TABLES;"
+}
+16:35:50=>[info]开始执行工具: ExecutePython, 参数: {"code": "import time\nimport resource\nimport sys\n\nprint(\"开始测试资源限制机制...\")\n\n# 设置CPU时间限制（秒）\ntry:\n    # 设置CPU时间限制为2秒\n    resource.setrlimit(resource.RLIMIT_CPU, (2, 2))\n    print(\"已设置CPU时间限制：2秒\")\nexcept Exception as e:\n    print(f\"设置CPU时间限制失败：{e}\")\n    sys.exit(1)\n\n# 测试循环 - 会在达到CPU时间限制时被终止\nprint(\"开始测试循环...\")\nstart_time = time.time()\ncount = 0\n\ntry:\n    while True:\n        count += 1\n        # 添加一些计算工作\n        _ = count * count\n        # 每100万次输出一次进度\n        if count % 1000000 == 0:\n            elapsed = time.time() - start_time\n            print(f\"已执行 {count} 次循环，耗时 {elapsed:.2f} 秒\")\nexcept Exception as e:\n    print(f\"循环被终止：{e}\")\n\nelapsed_time = time.time() - start_time\nprint(f\"测试完成！\")\nprint(f\"总共执行了 {count
+16:42:35=>[info]开始执行工具: ExecutePython, 参数: {
+    "code": "# 故意导致数组越界的示例\n\n# 创建一个长度为5的列表\nmy_list = [1, 2, 3, 4, 5]\n\n# 尝试访问不存在的索引，这将导致数组越界错误\ntry:\n    print(my_list[5])  # 索引5是不存在的\nexcept IndexError as e:\n    print(\"发生错误：\", e)"
+}

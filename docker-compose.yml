@@ -1,0 +1,90 @@
+version: '3.3'
+
+networks:
+  agent_net:
+    driver: bridge
+
+services:
+  # ==========================================
+  # 1. 存储与发现层
+  # ==========================================
+  zookeeper:
+    image: zookeeper:3.8
+    container_name: mprpc-zookeeper-agent
+    networks:
+      - agent_net
+    ports:
+      - "2181:2181"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mprpc-mysql-agent
+    networks:
+      - agent_net
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=chat
+    ports:
+      - "3307:3306" # 宿主机用3307连，容器内部依然是3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "-p123456"]
+      timeout: 20s
+      retries: 10
+
+  # ==========================================
+  # 2. 监控观测层
+  # ==========================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: mprpc-prometheus-agent
+    networks:
+      - agent_net
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9092:9090" # 避开旧的 9091/9090
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: mprpc-grafana-agent
+    networks:
+      - agent_net
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3002:3000" # 避开旧的 3001/3000
+    depends_on:
+      - prometheus
+
+  # ==========================================
+  # 3. 分布式 Agent 业务层
+  # ==========================================
+  gateway:
+    image: lele-rpc-agent:v1
+    container_name: agent-gateway-agent
+    volumes:
+      # 宿主机路径 : 容器内程序预期的路径
+      - ./bin/knowledge.txt:/app/knowledge.txt 
+      - ./bin/gateway.conf:/app/gateway.conf
+      - ./prompts:/app/prompts
+    networks:
+      - agent_net
+    ports:
+      - "5556:5556"
+      - "8081:8081"
+    depends_on:
+      - zookeeper
+    command: ["./agent_gateway", "-i", "gateway.conf"]
+
+  provider:
+    image: lele-rpc-agent:v1
+    container_name: agent-provider-agent
+    networks:
+      - agent_net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+      - mysql
+    # 注意：请确保 test_8001.conf 里的 db_ip 写的是 "mysql"，zookeeperip 是 "zookeeper"
+    command: ["./agent_provider", "-i", "test_8001.conf"]

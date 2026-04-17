@@ -1,0 +1,27 @@
+2026-04-01 14:06:44,737:908264(0x7f570b8b1100):ZOO_INFO@log_env@753: Client environment:zookeeper.version=zookeeper C client 3.4.13
+2026-04-01 14:06:44,737:908264(0x7f570b8b1100):ZOO_INFO@log_env@757: Client environment:host.name=fighting
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@764: Client environment:os.name=Linux
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@765: Client environment:os.arch=5.4.0-216-generic
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@766: Client environment:os.version=#236-Ubuntu SMP Fri Apr 11 19:53:21 UTC 2025
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@774: Client environment:user.name=lele
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@782: Client environment:user.home=/home/lele
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@log_env@794: Client environment:user.dir=/home/lele/program/MpRPC-frame/bin
+2026-04-01 14:06:44,738:908264(0x7f570b8b1100):ZOO_INFO@zookeeper_init@818: Initiating client connection, host=127.0.0.1:2181 sessionTimeout=30000 watcher=0x564d74829c1a sessionId=0 sessionPasswd=<null> context=(nil) flags=0
+2026-04-01 14:06:44,744:908264(0x7f5707cfe700):ZOO_INFO@check_events@1763: initiated connection to server [127.0.0.1:2181]
+2026-04-01 14:06:44,749:908264(0x7f5707cfe700):ZOO_INFO@check_events@1809: session establishment complete on server [127.0.0.1:2181], sessionId=0x100331f4c011fbe, negotiated timeout=30000
+[MCP 框架] 成功装载物理工具: SearchDataBase
+[MCP 框架] 成功装载物理工具: ExecutePython
+ MCP Server (智能体物理节点) 组装完毕，正在等待网关调度...
+Watcher Check: type=-1 state=3
+zookeeper _init success!
+znode create success...path:/McpToolService/CallTool/127.0.0.1:8002
+[服务注册] 成功挂载节点: /McpToolService/CallTool/127.0.0.1:8002
+znode create success...path:/McpToolService/ListTools/127.0.0.1:8002
+[服务注册] 成功挂载节点: /McpToolService/ListTools/127.0.0.1:8002
+  RpcProvider (ZMQ ROUTER) start service at tcp://*:8002
+2026-04-01 14:20:55,562:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 13ms
+2026-04-01 14:47:37,009:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-04-01 15:18:28,689:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 14ms
+2026-04-01 18:05:07,789:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 13ms
+2026-04-01 18:23:48,781:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms
+2026-04-01 19:04:11,001:908264(0x7f5707cfe700):ZOO_WARN@zookeeper_interest@1597: Exceeded deadline by 11ms

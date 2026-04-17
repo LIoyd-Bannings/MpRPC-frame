@@ -1,0 +1,8 @@
+9:41:10=>[info]service_name:AgentServiceRpc
+9:41:10=>[info]method_name:Execute
+9:41:10=>[info][TraceID: trace-1773884510] 收到大模型工具调用指令, 目标工具: SearchDataBase
+9:41:50=>[info][TraceID: trace-1773884510] 正在执行大模型派发的 SQL: SHOW TABLES;
+9:55:46=>[info]service_name:AgentServiceRpc
+9:55:46=>[info]method_name:Execute
+9:56:2=>[info]service_name:AgentServiceRpc
+9:56:2=>[info]method_name:Execute

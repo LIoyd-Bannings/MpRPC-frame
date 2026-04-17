@@ -1,0 +1,11 @@
+build/
+.git/
+lib/
+# 忽略 bin 目录下所有的文件
+bin/*
+# 但是！不要忽略以 .conf 结尾的文件
+!bin/*.conf
+
+# 也不要忽略已经生成的代码（可选，因为 builder 阶段会重新生成）
+*.pb.cc
+*.pb.h

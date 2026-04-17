@@ -1,0 +1,58 @@
+name: Agent-System-CI-CD
+
+# 触发规则：当你向 main 分支 push 代码时，自动启动流水线
+on:
+  push:
+    branches: [ v2.0-AI-Agent ]
+
+jobs:
+  # ==========================================
+  # 阶段一：构建镜像并推送到 Docker Hub (CI)
+  # ==========================================
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 检出仓库代码
+        uses: actions/checkout@v3
+
+      - name: 2. 登录 Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 3. 构建并推送镜像
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          # 使用你的 zqfdc/rpc-agent 路径
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/rpc-agent:latest
+            ${{ secrets.DOCKER_USERNAME }}/rpc-agent:${{ github.sha }}
+
+  # ==========================================
+  # 阶段二：自动部署到你的云服务器 (CD)
+  # ==========================================
+  deploy:
+    needs: build-and-push # 必须等镜像推成功了才开始部署
+    runs-on: ubuntu-latest
+    steps:
+      - name: 4. 通过 SSH 远程执行部署命令
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # 进入你服务器上的代码目录
+            cd ~/program/MpRPC-frame
+            
+            # 拉取 GitHub 刚刚构建好的最新镜像
+            docker-compose pull
+            
+            # 启动/重启服务（由于你用了最新镜像，docker 会自动更新 gateway 和 provider）
+            docker-compose up -d
+            
+            # 清理服务器上残留的旧镜像，防止磁盘被撑爆
+            docker image prune -a -f
