@@ -40,8 +40,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && 
     libmysqlclient21 \
     libssl3 \
     docker.io \
-    libprometheus-cpp-core1.0 \
-    libprometheus-cpp-pull1.0 \
+    libprometheus-cpp-dev \
     libcurl4 \
     && rm -rf /var/lib/apt/lists/*
 
