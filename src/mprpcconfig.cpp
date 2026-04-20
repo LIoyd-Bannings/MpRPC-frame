@@ -46,19 +46,20 @@
         
     }
     //查询配置项信息
-    std::string MprpcConfig::Load(std::string key)
-    {
-        auto it=m_configMap.find(key);
-        if (it==m_configMap.end())
-        {
-            return " ";
-        }
-        else
-        {
-            return it->second;
-        }
+std::string MprpcConfig::Load(std::string key)
+{
+    //  工业级：环境变量拦截
+    // 先尝试读取系统环境变量 (如 DB_IP, ZK_IP)
+    char* env_val = getenv(key.c_str());
+    if (env_val != nullptr) {
+        return std::string(env_val);
     }
 
+    // 如果环境变量没有，再从 m_configMap 找 [cite: 3131-3139]
+    auto it = m_configMap.find(key);
+    if (it == m_configMap.end()) return "";
+    return it->second;
+}
 
     void MprpcConfig::Trim(std::string&src_buf)
     {

@@ -1,7 +1,15 @@
+
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
+
+
 #设置cmake的最低版本和项目名称
 cmake_minimum_required(VERSION 3.0)
 project(mprpc)
-set(CMAKE_BUILD_TYPE "Debug")#RelWithDebInfo
+set(CMAKE_BUILD_TYPE "Release")#RelWithDebInfo
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g")#开启ASAN的命令
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer")
@@ -9,6 +17,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #设置项目库文件输出的路径
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
+include_directories(${PROJECT_SOURCE_DIR}/src/include/jwt-cpp/include)
 
 #设置项目编译头文件搜索路径 -I
 include_directories(${PROJECT_SOURCE_DIR}/src/include)

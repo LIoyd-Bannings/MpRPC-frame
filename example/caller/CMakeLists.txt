@@ -44,8 +44,8 @@
 # ==========================================================
 # 1. 编译纯 LLM 测试节点
 # ==========================================================
-add_executable(test_llm test_llm.cpp)
-target_link_libraries(test_llm ssl crypto pthread)
+# add_executable(test_llm test_llm.cpp)
+# target_link_libraries(test_llm ssl crypto pthread)
 
 # ==========================================================
 # 2. 编译林弟 (客户端)
@@ -56,8 +56,10 @@ target_link_libraries(chat_client zmq pthread)
 # ==========================================================
 # 3. 编译网关 (Agent Gateway)
 # ==========================================================
-add_executable(agent_gateway agent_gateway.cpp ../agent.pb.cc)
-
+add_executable(agent_gateway agent_gateway.cpp ../agent.pb.cc     ../db/db.cpp              #  新增
+../db/ConnectionPool.cpp  )
+# 将 hiredis 动态库链接到你的网关执行文件上
+target_link_libraries(agent_gateway mprpc crypt pthread hiredis)
 # 把底层 mprpc、大模型需要的 ssl/crypto、以及核动力 zmq 全部融为一体！
 target_link_libraries(agent_gateway 
     mprpc 
@@ -67,4 +69,6 @@ target_link_libraries(agent_gateway
     ssl 
     crypto 
     pthread
+    mysqlclient
+    crypt
 )

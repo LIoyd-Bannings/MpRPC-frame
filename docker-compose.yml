@@ -75,6 +75,10 @@ services:
     depends_on:
       - zookeeper
     command: ["./agent_gateway", "-i", "gateway.conf"]
+    environment:                 # 👈 注意这里的缩进
+      - zookeeperip=zookeeper    # Docker 内部用域名
+      - db_ip=mysql              # Docker 内部用服务名
+      - db_port=3306             # 容器内部直连 MySQL 默认端口
 
   provider:
     image: lele-rpc-agent:v1
@@ -86,5 +90,16 @@ services:
     depends_on:
       - zookeeper
       - mysql
-    # 注意：请确保 test_8001.conf 里的 db_ip 写的是 "mysql"，zookeeperip 是 "zookeeper"
+    environment:                 # 👈 核心：给 Provider 也打上“环境装甲”
+      - zookeeperip=zookeeper    # 强行覆盖 test_8001.conf 里的 127.0.0.1
+      - db_ip=mysql
+      - db_port=3306             # 同样，容器内互访用 3306
     command: ["./agent_provider", "-i", "test_8001.conf"]
+
+  redis:
+    image: redis:latest
+    container_name: mprpc-redis
+    networks:
+      - agent_net  # 确保这个网络和你现有的容器在同一个网段
+    ports:
+      - "6379:6379"
