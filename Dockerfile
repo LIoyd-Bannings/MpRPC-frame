@@ -7,9 +7,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libprotobuf-dev \
     protobuf-compiler \
     libzookeeper-mt-dev \
-    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     libssl-dev \
-    libprometheus-cpp-dev \
+    prometheus-cpp-dev \
     libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,16 +28,17 @@ RUN mkdir -p build && cd build && cmake .. && make
 RUN touch bin/dummy.conf knowledge.txt && mkdir -p prompts && touch prompts/dummy.txt
 
 
-# 运行环境也同步升级到 24.04
+# ==========================================
+# 运行环境
 FROM ubuntu:24.04
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libzmq3-dev \
     libprotobuf-dev \
     libzookeeper-mt-dev \
-    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     libssl-dev \
-    libprometheus-cpp-dev \
+    prometheus-cpp-dev \
     libcurl4-openssl-dev \
     docker.io \
     && rm -rf /var/lib/apt/lists/*
