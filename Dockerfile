@@ -12,6 +12,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libzookeeper-mt-dev \
     libmysqlclient-dev \
     libssl-dev \
+    libprometheus-cpp-dev \
+    libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
@@ -38,6 +40,9 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && 
     libmysqlclient21 \
     libssl3 \
     docker.io \
+    libprometheus-cpp-core1.0 \
+    libprometheus-cpp-pull1.0 \
+    libcurl4 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
