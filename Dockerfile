@@ -1,7 +1,4 @@
-FROM ubuntu:22.04 AS builder
-
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+FROM ubuntu:24.04 AS builder
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
@@ -31,9 +28,10 @@ RUN mkdir -p build && cd build && cmake .. && make
 RUN touch bin/dummy.conf knowledge.txt && mkdir -p prompts && touch prompts/dummy.txt
 
 
-FROM ubuntu:22.04
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
-    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+# 运行环境也同步升级到 24.04
+FROM ubuntu:24.04
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libzmq3-dev \
     libprotobuf-dev \
     libzookeeper-mt-dev \
