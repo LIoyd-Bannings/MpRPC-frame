@@ -25,7 +25,7 @@ RUN find . -name "*.pb.cc" -type f -delete && \
 RUN find . -name "*.proto" -exec sh -c 'cd $(dirname "{}") && protoc -I=. --cpp_out=. $(basename "{}")' \;
 RUN mkdir -p src/include && cp src/*.pb.h src/include/ || true
 
-# 【关键点】：使用最保守的单核编译，绝不爆内存
+# 单核编译防爆内存
 RUN mkdir -p build && cd build && cmake .. && make
 
 RUN touch bin/dummy.conf knowledge.txt && mkdir -p prompts && touch prompts/dummy.txt
@@ -34,14 +34,14 @@ RUN touch bin/dummy.conf knowledge.txt && mkdir -p prompts && touch prompts/dumm
 FROM ubuntu:22.04
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    libzmq5 \
-    libprotobuf23 \
-    libzookeeper-mt2 \
-    libmysqlclient21 \
-    libssl3 \
-    docker.io \
+    libzmq3-dev \
+    libprotobuf-dev \
+    libzookeeper-mt-dev \
+    libmysqlclient-dev \
+    libssl-dev \
     libprometheus-cpp-dev \
-    libcurl4 \
+    libcurl4-openssl-dev \
+    docker.io \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
