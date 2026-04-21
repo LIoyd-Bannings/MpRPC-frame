@@ -11,6 +11,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libssl-dev \
     prometheus-cpp-dev \
     libcurl4-openssl-dev \
+    libhiredis-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
@@ -40,6 +41,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libssl-dev \
     prometheus-cpp-dev \
     libcurl4-openssl-dev \
+    libhiredis-dev \
     docker.io \
     && rm -rf /var/lib/apt/lists/*
 
