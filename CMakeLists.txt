@@ -5,7 +5,7 @@ if(CCACHE_FOUND)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
 endif(CCACHE_FOUND)
 
-
+add_definitions(-DTHREADED)
 #设置cmake的最低版本和项目名称
 cmake_minimum_required(VERSION 3.0)
 project(mprpc)
